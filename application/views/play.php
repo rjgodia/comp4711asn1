@@ -5,8 +5,6 @@
 			x.innerHTML=Math.floor((Math.random()*6+1));
 	}
 	
-	function 
-	
 </script>
 
 Put game play stuff here
