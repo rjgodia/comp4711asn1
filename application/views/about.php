@@ -60,8 +60,11 @@ possible, is even higher.
 
 <h4>Created by</h4>
 Danny Seo
+</br>
 Daniel Rees
+</br>
 RJ Godia
+</br>
 Nico Tan
 
 </br>
