@@ -60,9 +60,12 @@ possible, is even higher.
 
 <h4>Created by</h4>
 Danny Seo
+</br>
 Daniel Rees
+</br>
 RJ Godia
-Nico I don't know his last name
+</br>
+Nico Tan
 
 </br>
 </br>
