@@ -6,14 +6,14 @@
             <th>Category</th>
             <th>Value</th>
         </tr>
-        {test}
+        {stocks}
         <tr>
             <td>{Code}</td>
             <td>{Name}</td>
             <td>{Category}</td>
             <td>{Value}</td>
         </tr>
-        {/test}
+        {/stocks}
     </table>
     
 </div>

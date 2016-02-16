@@ -13,9 +13,7 @@
         function index()
         {
             $this->data['pagebody'] = 'play';
-            //$this->data['test'] = var_dump($this->Stocks->all());
-            $this->data['test'] = $this->Stocks->all();
-            
+            $this->data['stocks'] = $this->Stocks->all();            
             $this->render();
         }
     }
