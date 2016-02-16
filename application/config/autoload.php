@@ -58,7 +58,8 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('parser', 'form_validation', 'session');
+
+$autoload['libraries'] = array('parser', 'form_validation', 'session', 'database');
 
 /*
 | -------------------------------------------------------------------
@@ -126,4 +127,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('Stocks', 'Players', 'Moves', 'Trans');
