@@ -29,7 +29,7 @@ Chang Beom Seo
 
 RJ Godia
 
-Daniel-san Rees
+Daniel Rees
 
 Nico Tan
 
