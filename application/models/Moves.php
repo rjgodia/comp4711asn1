@@ -18,4 +18,19 @@ class Moves extends MY_Model
     {
         parent::__construct('movements','Datetime');
     }
+    
+    public function recent(){
+        $this->db->order_by($this->_keyField, 'desc');
+        $this->db->limit(1);
+        $query = $this->db->get($this->_tableName);
+        return $query->result();
+    }
+    public function getCol(){
+        
+        foreach ($this->Moves->recent() as $row)
+            {
+                return $row->Code;
+            }
+            
+    }
 }
