@@ -6,6 +6,8 @@ Starter Webapp - Quotes
 Changelog
 **************
 Update 1: Added coding style and inital project setup
+Update 2: Created MVC for Stocks
+Update 3: Created MVC for Leaderboards
 
 **************
 Coding Stylez:
