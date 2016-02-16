@@ -1,8 +1,7 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
 	
-	
-    class Play extends Application {
+	class Play extends Application {
 
         //constructor
         function __construct() 
@@ -17,3 +16,4 @@
             $this->render();
         }
     }
+?>
