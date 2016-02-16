@@ -15,6 +15,8 @@ Update 4: Created MVC for Movements
 
 Update 5: Created MVC for Transaction
 
+Update 6: Added History Page
+
 **************
 Coding Stylez:
 **************
