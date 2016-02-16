@@ -13,6 +13,7 @@
 		public function index()
 		{
 			$this->data['pagebody'] = 'play';
+			$this->data['title'] = "Login";
 			$this->render();
 		}
 	}

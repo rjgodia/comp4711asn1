@@ -22,6 +22,18 @@ class Application extends CI_Controller {
 		$this->data['title'] = 'Stock Game';	// our default title
 		$this->errors = array();
 		$this->data['pageTitle'] = 'welcome';   // our default page
+		
+		 $this->load->library('session');
+		 
+		 
+		 $nav_right = $this->config->item('menu_choices_right');
+		 if ($this->session->userdata('usr') !== null) {
+             $nav_right['menudata'][0] = array('name' => 'Hello, ' . $this->session->userdata('usr'), 'link' => '/profile');
+			 $nav_right['menudata'][1] 
+                 = array('name' => 'Logout', 'link' => '/logout');
+			 
+         }
+		 $this->config->set_item('menu_choices_right', $nav_right);
 	}
 	/**
 	 * Render this page
@@ -29,6 +41,8 @@ class Application extends CI_Controller {
 	function render()
 	{
 		$this->data['menubar'] = $this->parser->parse('_menubar', $this->config->item('menu_choices'), true);
+		$this->data['menubar_right'] = $this->parser->parse('_menubar_right', $this->config->item('menu_choices_right'), true);
+		
 		$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
 		// finally, build the browser page!
 		$this->data['data'] = &$this->data;
