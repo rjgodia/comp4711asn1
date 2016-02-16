@@ -7,22 +7,22 @@
  */
 
 /**
- * Description of Leaderboards
+ * Description of Movements
  *
  * @author rjgodia
  */
-class Leaderboards extends Application
+class Movements extends Application
 {
-    //constructor
-    function __construct() 
+    //put your code here
+    function __construct()
     {
         parent::__construct();
     }
-
+    
     function index()
     {
-        $this->data['pagebody'] = 'leaderboards'; // view
-        $this->data['playerlist'] = $this->Players->all(); // model
+        $this->data['pagebody'] = 'movements'; // view
+        $this->data['movelist'] = $this->Moves->all(); // model
         $this->render();
     }
 }

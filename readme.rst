@@ -1,13 +1,17 @@
-#######################
-Starter Webapp - Quotes
-#######################
+##############################
+Starter Webapp - Stock Ticker
+##############################
 
 **************
 Changelog
 **************
-Update 1: Added coding style and inital project setup
+Update 1: Added coding style and initial project setup
+
 Update 2: Created MVC for Stocks
+
 Update 3: Created MVC for Leaderboards
+
+Update 4: Created MVC for Movements
 
 **************
 Coding Stylez:
