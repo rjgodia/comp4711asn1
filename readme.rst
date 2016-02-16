@@ -13,6 +13,8 @@ Update 3: Created MVC for Leaderboards
 
 Update 4: Created MVC for Movements
 
+Update 5: Created MVC for Transaction
+
 **************
 Coding Stylez:
 **************
