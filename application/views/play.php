@@ -1,9 +1,19 @@
-<?php
-	$dice1 = array("up", "down", "div");
-	echo $dice1[array_rand($dice1)];
-	
-	echo "</br>";
-	
-	$dice2 = array(5,10,20);
-	echo $dice2[array_rand($dice2)];
-?>
+<div>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Value</th>
+        </tr>
+        {stocks}
+        <tr>
+            <td>{Code}</td>
+            <td>{Name}</td>
+            <td>{Category}</td>
+            <td>{Value}</td>
+        </tr>
+        {/stocks}
+    </table>
+    
+</div>
