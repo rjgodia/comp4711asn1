@@ -11,8 +11,7 @@
 
         function index()
         {
-            $this->data['pagebody'] = 'play';
-            $this->data['stocks'] = $this->Stocks->all();            
+            $this->data['pagebody'] = 'play';           
             $this->render();
         }
     }

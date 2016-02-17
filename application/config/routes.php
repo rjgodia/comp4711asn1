@@ -53,3 +53,4 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['logout'] = 'login/logout';
+$route['history/(:any)'] = "history/loadStocks/$1";
