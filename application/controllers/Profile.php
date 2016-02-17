@@ -29,7 +29,11 @@ class Profile extends Application {
 	function index()
 	{
 		$this->data['pagebody'] = 'profile';	// this is the view we want shown
-		$this->data['title'] = "Profile";
+
+		$this->data['title'] = "Player Portfolio";
+
+		$this->data['players'] = $this->Players->all(); // model
+		$this->data['history'] = $this->Trans->all(); // model
 		
 		$this->render();
 	}
