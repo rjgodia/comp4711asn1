@@ -24,7 +24,8 @@ class History extends Application
             $this->render();
     }
     
-    public function loadStocks($stock){
+    public function loadStocks($stock)
+    {
         $this->data['pagebody'] = 'history';
         $this->data['title'] = $stock . " History";
         $this->data['stocktype'] = $this->Moves->some("Code", $stock);

@@ -29,6 +29,7 @@ class Welcome extends Application
     function index()
     {
         $this->data['pagebody'] = 'homepage'; // view
+        $this->data['title'] = 'Stock Ticker Updates';
         $this->data['stock_list'] = $this->Stocks->all();
         $this->getEquity();        
         $this->data['player_list'] = $this->Players->all();
@@ -77,6 +78,5 @@ class Welcome extends Application
         $this->db->where('Stock', $stock);
         $query = $this->db->get('transactions');
         return $query->result()[0]->TotalSell;
-    }
-    
+    }    
 }

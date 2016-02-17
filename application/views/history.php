@@ -26,12 +26,14 @@
 
 <div>
     <table class="table table-striped table-hover">
+        <thead>
         <tr>
             <th>Date</th>
             <th>Code</th>
             <th>Action</th>
             <th>Amount</th>
         </tr>
+        </thead>
         {stocktype}
         <tr>
             <td>{Datetime}</td>
@@ -47,6 +49,7 @@
 <h1>Transactions</h1>
 <div>
     <table class="table table-striped table-hover">
+        <thead>
         <tr>
             <th>Date</th>
             <th>Player</th>
@@ -54,6 +57,7 @@
             <th>Transaction</th>
             <th>Quantity</th>
         </tr>
+        </thead>
         {translist}
         <tr>
             <td>{DateTime}</td>
