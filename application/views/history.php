@@ -8,7 +8,7 @@
 
 ?>
 
-
+<br/>
 
 <div class="btn-group">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,8 +20,9 @@
       <li><a href="/history/{Code}">{Name}</a></li> 
       {/stocks}
   </ul>
-    
 </div>
+<br/>
+<br/>
 
 <div>
     <table class="table table-striped table-hover">

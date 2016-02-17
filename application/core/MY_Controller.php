@@ -28,7 +28,7 @@ class Application extends CI_Controller {
 		 
 		 $nav_right = $this->config->item('menu_choices_right');
 		 if ($this->session->userdata('usr') !== null) {
-             $nav_right['menudata'][0] = array('name' => 'Hello, ' . $this->session->userdata('usr'), 'link' => '/profile');
+             $nav_right['menudata'][0] = array('name' => 'Hello, ' . $this->session->userdata('usr'), 'link' => '#');
 			 $nav_right['menudata'][1] 
                  = array('name' => 'Logout', 'link' => '/logout');
 			 
