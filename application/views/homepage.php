@@ -1,23 +1,45 @@
 <div class = "row">
     <div class="span12">
-        <img src="/assets/images/banner.jpg" height="100px"/>
+        <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
+    </div>
+    
+    <div id="legend" class="span12" style="display: none; overflow-y: scroll; max-height: 200px; margin-top: 0px">
+        <table class="table table-hover">
+            <thead>
+                <th>Legend</th>
+                <th></th>
+            </thead>
+            <tr class="info">
+                <td><img src="/assets/images/top_stocks.png" width="25px" height="25px"/></td>
+                <td>Top 3 Stocks</td>
+            </tr>
+            <tr class="success">
+                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/></td>
+                <td>Highest Player Net Worth</td>
+            </tr>
+            <tr class="warning">
+                <td><img src="/assets/images/top_cash.png" width="25px" height="25px"/></td>
+                <td>Highest Player Cash</td>
+            </tr>
+        </table>
     </div>
     
     <div class="span4">
         <h4><u>Stocks Update</u></h4>
     </div>
-    <div class="span8">
+    <div class="span7">
         <h4><u>Player Standings</u></h4>
     </div>
+    <div class="span1">
+        <img id="on" src="/assets/images/qmark4.png" width="35px" height="35px" onclick="help(this.id)"/>
+    </div>
     
-    <div class="span4" style="overflow-y: scroll; max-height: 200px;">
+    <div id="col1" class="span4" style="overflow-y: scroll; max-height: 200px; margin-top: 0px">
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th>Stock</th>
-                    <th>Value</th>
-                    <th></th>
-                </tr>
+                <th>Stock</th>
+                <th>Value</th>
+                <th></th>
             </thead>
             {stock_list}
             <tr id="{Name}">
@@ -29,21 +51,19 @@
         </table>
     </div>
     
-    <div class="span8" style="overflow-y: scroll; max-height: 200px;">
+    <div id="col2" class="span8" style="overflow-y: scroll; max-height: 200px; margin-top: 0px">
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Player</th>
-                    <th>Cash</th>
-                    <th>Equity</th>
-                    <th>Net Worth</th>
-                    <th></th>
-                </tr>
+             <thead>
+                <th>Player</th>
+                <th>Cash</th>
+                <th>Equity</th>
+                <th>Net Worth</th>
+                <th></th>
             </thead>
             {player_list}
             <tr id="{Player}">
                 <td><a href="/profile/{Player}">{Player}</a></td>
-                <td>{Cash}</td>
+                <td id="{Player}_cash">{Cash}</td>
                 <td id="{Player}_eq">{Equity}</td>
                 <td id="{Player}_net">{Net}</td>
                 <td id="{Player}_pic"></td>
@@ -55,31 +75,58 @@
 </div>
 
 <script>
+    var speed = 400;
+    
+    function help(id)
+    {
+        if(id === 'on')
+        {
+            $('#legend').show(speed);
+            $('#'+id).attr('src','/assets/images/xmark.png');
+            $('#'+id).attr('id', 'off');
+        }
+        else
+        {
+            $('#legend').hide(speed);
+            $('#'+id).attr('src','/assets/images/qmark4.png');
+            $('#'+id).attr('id', 'on');
+        }
+    }
+</script>
+<script>
     
     var players = [];
     var stocks =[];
+    var pcash = [];
     
     {player_list}players.push({Net});{/player_list}
     {stock_list}stocks.push({Value});{/stock_list}
+    {player_list}pcash.push({Cash});{/player_list}
         
     /*
      * color codes the player according to equity and cash
      * green    - highest net worth
      * red      - negative net worth
      */
-    
-    function colorCodePlayers(id, net)
+
+    function colorCodePlayers(id, net, cash)
     {
         var row = document.getElementById(id);
-        var pic = document.getElementById(id+'_pic');
         var pnet = document.getElementById(id+'_net');
+        var pic = document.getElementById(id+'_pic');
         
         /* negative net worth */
         if(net <= 0) pnet.style = "color: red";
         
-        /* highest cash value player */
+        /* player with highest cash value */
+        if(Math.max.apply(Math, pcash) === cash)
+        {
+            row.className = "warning";
+            row.style = "font-weight: bold";
+            pic.innerHTML = '<img src="/assets/images/top_cash.png" width="25px" height="25px"/>';
+        }
         
-        if(players.indexOf(net) === 0)
+        if(players[0] === net)
         {
             row.className = "success";
             row.style = "font-weight: bold";
@@ -94,7 +141,7 @@
     {
         var row = document.getElementById(id);
         var pic = document.getElementById(id+'_pic');
-        if(stocks.indexOf(val) === 0 || stocks.indexOf(val) === 1 || stocks.indexOf(val) === 2)
+        if(stocks[0] === val || stocks[1] === val || stocks[2] === val)
         {
             row.className = "info";
             row.style = "font-weight: bold";
@@ -102,6 +149,6 @@
         }
     }
     
-    {player_list} colorCodePlayers('{Player}', {Net}); {/player_list}
+    {player_list} colorCodePlayers('{Player}', {Net}, {Cash}); {/player_list}
     {stock_list} colorCodeStocks('{Name}', {Value}); {/stock_list}
 </script>
