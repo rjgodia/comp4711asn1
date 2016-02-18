@@ -1,5 +1,7 @@
 <div class = "row">
-    <div class="span12">test</div>
+    <div class="span12">
+        <img src="/assets/images/banner.jpg"/>
+    </div>
     <div class="span3">
         <table class="table table-hover">
             <thead>
@@ -19,7 +21,7 @@
         </table>
     </div>
     
-     <div class="span9">
+    <div class="span9">
         <table class="table table-hover">
             <thead>
                 <tr>
