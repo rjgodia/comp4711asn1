@@ -29,6 +29,8 @@ Update 11: Revised database (Added Equity column in Players table)
 
 Update 12: Updated Equity and Net Worth (revised stockticker database: added Net worth); Players sorted according to Net worth
 
+Update 13: Modified Homepage
+
 **************
 Coding Stylez:
 **************
