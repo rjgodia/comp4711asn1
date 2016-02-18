@@ -54,3 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['logout'] = 'login/logout';
 $route['history/(:any)'] = "history/loadStocks/$1";
+$route['profile/(:any)'] = "profile/loadPurchases/$1";
