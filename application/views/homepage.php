@@ -25,8 +25,8 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Stock</th>
-                    <th>Value</th>
+                    <th>Player</th>
+                    <th>Cash</th>
                     <th>Equity</th>
                     <th></th>
                 </tr>
