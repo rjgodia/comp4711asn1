@@ -229,7 +229,7 @@ class MY_Model extends CI_Model implements Active_Record {
 //---------------------------------------------------------------------------
     // Return all records as an array of objects
     function all() {
-        $this->db->order_by($this->_keyField, 'asc');
+        $this->db->order_by($this->_keyField, 'desc');
         $query = $this->db->get($this->_tableName);
         return $query->result();
     }

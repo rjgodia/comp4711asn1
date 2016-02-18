@@ -17,6 +17,14 @@ Update 5: Created MVC for Transaction
 
 Update 6: Added History Page
 
+Update 7: Updated Homepage
+
+Update 8: Moved methods from Homepage to Welcome.php (Controller)
+
+Update 9: Sorted Homepage table + Color Coded rows
+
+Update 10: Added table row icons
+
 **************
 Coding Stylez:
 **************
