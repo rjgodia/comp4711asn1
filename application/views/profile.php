@@ -1,8 +1,3 @@
-<?php
-function view(){
-    echo "TEST";
-}
-?>
 <div>
     <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
