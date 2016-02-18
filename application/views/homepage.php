@@ -1,8 +1,16 @@
 <div class = "row">
     <div class="span12">
-        <img src="/assets/images/banner.jpg"/>
+        <img src="/assets/images/banner.jpg" height="100px"/>
     </div>
-    <div class="span3">
+    
+    <div class="span4">
+        <h4><u>Stocks Update</u></h4>
+    </div>
+    <div class="span8">
+        <h4><u>Player Standings</u></h4>
+    </div>
+    
+    <div class="span4" style="overflow-y: scroll; max-height: 200px;">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -16,18 +24,19 @@
                 <td><a href="/history/{Code}">{Name}</a></td>
                 <td>{Value}</td>
                 <td id="{Name}_pic"></td>
-            </tr>            
+            </tr>
             {/stock_list}
         </table>
     </div>
     
-    <div class="span9">
+    <div class="span8" style="overflow-y: scroll; max-height: 200px;">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Stock</th>
-                    <th>Value</th>
+                    <th>Player</th>
+                    <th>Cash</th>
                     <th>Equity</th>
+                    <th>Net Worth</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,8 +45,9 @@
                 <td><a href="/profile/{Player}">{Player}</a></td>
                 <td>{Cash}</td>
                 <td id="{Player}_eq">{Equity}</td>
+                <td id="{Player}_net">{Net}</td>
                 <td id="{Player}_pic"></td>
-            </tr>         
+            </tr>
             {/player_list}
         </table>
     </div>
@@ -49,29 +59,33 @@
     var players = [];
     var stocks =[];
     
-    {player_list}players.push({Cash});{/player_list}
+    {player_list}players.push({Net});{/player_list}
     {stock_list}stocks.push({Value});{/stock_list}
         
     /*
      * color codes the player according to equity and cash
-     * green - highest cash
-     * red - negative equity
+     * green    - highest net worth
+     * red      - negative net worth
      */
-    function colorCodePlayers(id, eq, cash)
+    
+    function colorCodePlayers(id, net)
     {
         var row = document.getElementById(id);
         var pic = document.getElementById(id+'_pic');
-        var peq = document.getElementById(id+'_eq');
+        var pnet = document.getElementById(id+'_net');
         
-        if(players.indexOf(cash) === 0)
+        /* negative net worth */
+        if(net <= 0) pnet.style = "color: red";
+        
+        /* highest cash value player */
+        
+        if(players.indexOf(net) === 0)
         {
             row.className = "success";
             row.style = "font-weight: bold";
             pic.style = "text-style: left";
             pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
-        if(eq < 0)
-            peq.style = "color: red";
     }
     /*
      * color codes top 3 stocks according to its value
@@ -86,7 +100,8 @@
             row.style = "font-weight: bold";
             pic.innerHTML = '<img src="/assets/images/top_stocks.png" width="25px" height="25px"/>';
         }
-    }        
-    {player_list} colorCodePlayers('{Player}', {Equity}, {Cash}); {/player_list}
+    }
+    
+    {player_list} colorCodePlayers('{Player}', {Net}); {/player_list}
     {stock_list} colorCodeStocks('{Name}', {Value}); {/stock_list}
 </script>

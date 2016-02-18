@@ -15,24 +15,32 @@ class Players extends MY_Model
 {
     function __construct()
     {
-        parent::__construct('players', 'Cash');
+        parent::__construct('players', 'Net');
     }
     
     function getEquity()
     {        
         $players = $this->Trans->all();
         $stocks = $this->Stocks->all();
-        $equity = 0;
         
         foreach($players as $p)
         {
+            $equity = 0;
             foreach($stocks as $s)
             {
-                $equity += $s->Value * ($this->totalSell($p->Player, $s->Code) - $this->totalBuy($p->Player, $s->Code));
+                $equity += $s->Value * ($this->getTotalTrans($p->Player, $s->Code));
             }
-            
             $this->UpdateEquity('Players', $equity, $p->Player);
-            $equity = 0;
+        }
+    }
+    
+    function getNet()
+    {
+        $players = $this->Players->all();
+        
+        foreach($players as $p)
+        {
+            $this->UpdateNetWorth('Players', $p->Player, $p->Equity, $p->Cash);
         }
     }
     
@@ -43,24 +51,19 @@ class Players extends MY_Model
         $this->db->update($table, $data);
     }
     
-    function totalBuy($player,$stock)
+    function UpdateNetWorth($table, $player, $equity, $cash)
     {
-        $this->db->select('(SUM(Quantity)) AS TotalBuy');
-        $this->db->where('player',$player);
-        $this->db->where('Trans', 'buy');
-        $this->db->where('Stock', $stock);
-        $query = $this->db->get('transactions');
-        return $query->result()[0]->TotalBuy;
+        $data = array ('Net'=>( $cash - $equity ));
+        $this->db->where('Player', $player);
+        $this->db->update($table, $data);
     }
     
-    function totalSell($player, $stock)
+    function getTotalTrans($player, $stock)
     {
-        $this->db->select('(SUM(Quantity)) AS TotalSell');
-        $this->db->where('player',$player);
-        $this->db->where('Trans', 'sell');
-        $this->db->where('Stock', $stock);
-        $query = $this->db->get('transactions');
-        return $query->result()[0]->TotalSell;
+        $this->db->select('SUM(Quantity) AS TotalTrans');
+        $this->db->where('player', $player);
+        $this->db->where('stock', $stock);
+        return $this->db->get('transactions')->result()[0]->TotalTrans;
     }
 
     function getCol()
