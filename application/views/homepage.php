@@ -87,6 +87,6 @@
             pic.innerHTML = '<img src="/assets/images/top_stocks.png" width="25px" height="25px"/>';
         }
     }        
-    {player_list}colorCodePlayers('{Player}', {Equity}, {Cash}); {/player_list}
+    {player_list} colorCodePlayers('{Player}', {Equity}, {Cash}); {/player_list}
     {stock_list} colorCodeStocks('{Name}', {Value}); {/stock_list}
 </script>
