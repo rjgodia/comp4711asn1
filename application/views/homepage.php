@@ -1,6 +1,27 @@
 <div class = "row">
     <div class="span12">
-        <img src="/assets/images/banner.jpg" height="70px"/>
+        <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
+    </div>
+    
+    <div id="legend" class="span12" style="display: none; overflow-y: scroll; max-height: 200px; margin-top: 0px">
+        <table class="table table-hover">
+            <thead>
+                <th>Legend</th>
+                <th></th>
+            </thead>
+            <tr class="info">
+                <td><img src="/assets/images/top_stocks.png" width="25px" height="25px"/></td>
+                <td>Top 3 Stocks</td>
+            </tr>
+            <tr class="success">
+                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/></td>
+                <td>Highest Player Net Worth</td>
+            </tr>
+            <tr class="warning">
+                <td><img src="/assets/images/top_cash.png" width="25px" height="25px"/></td>
+                <td>Highest Player Cash</td>
+            </tr>
+        </table>
     </div>
     
     <div class="span4">
@@ -10,11 +31,7 @@
         <h4><u>Player Standings</u></h4>
     </div>
     <div class="span1">
-        <div class="btn-group">
-            <button type="button" id="switch" class="btn btn-primary" onclick="change(this.id)">
-                <img src="/assets/images/qmark.png" width="25px" height="25px"/>
-            </button>
-        </div>
+        <img id="on" src="/assets/images/qmark4.png" width="35px" height="35px" onclick="help(this.id)"/>
     </div>
     
     <div id="col1" class="span4" style="overflow-y: scroll; max-height: 200px; margin-top: 0px">
@@ -55,62 +72,27 @@
         </table>
     </div>
     
-    <div id="col3" class="span3" style="display: none; overflow-y: scroll; max-height: 200px; margin-top: 0px">
-        <table class="table table-hover">
-            <thead>
-                <th>Legend</th>
-                <th></th>
-            </thead>
-            <tr class="info">
-                <td><img src="/assets/images/top_stocks.png" width="25px" height="25px"/></td>
-                <td>Top 3 Stocks</td>
-            </tr>
-            <tr class="success">
-                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/></td>
-                <td>Highest Player Net Worth</td>
-            </tr>
-            <tr class="warning">
-                <td><img src="/assets/images/top_cash.png" width="25px" height="25px"/></td>
-                <td>Highest Player Cash</td>
-            </tr>
-        </table>
-    </div>
-    
 </div>
 
 <script>
-var speed = 250;
-function change(id)
-{
-    var btn = document.getElementById(id);
-    if(btn.className === "btn btn-primary")
+    var speed = 400;
+    
+    function help(id)
     {
-        $("#col1").hide(speed);
-        $("#col1").show(speed);
-        
-        $("#col2").hide(speed);
-        $("#col2").removeClass().addClass("span5");
-        $("#col2").show(speed);
-        
-        $("#col3").show(speed);
-        btn.className = "btn btn-secondary";
+        if(id === 'on')
+        {
+            $('#legend').show(speed);
+            $('#'+id).attr('src','/assets/images/xmark.png');
+            $('#'+id).attr('id', 'off');
+        }
+        else
+        {
+            $('#legend').hide(speed);
+            $('#'+id).attr('src','/assets/images/qmark4.png');
+            $('#'+id).attr('id', 'on');
+        }
     }
-    else
-    {
-        $("#col1").hide(speed);
-        $("#col1").show(speed);
-        
-        $("#col2").hide(speed);
-        $("#col2").removeClass().addClass("span8");
-        $("#col2").show(speed);
-        
-        $("#col3").hide(speed);
-        btn.className = "btn btn-primary";
-    }
-}
-
 </script>
-
 <script>
     
     var players = [];

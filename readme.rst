@@ -31,10 +31,15 @@ Update 12: Updated Equity and Net Worth (revised stockticker database: added Net
 
 Update 13: Modified Homepage
 
+Update 14: Modified stockticker database (Net = Cash + Equity)
+
+Update 15: Fixed Legend
+
 **************
 Coding Stylez:
 **************
-if(){
+if()
+{
   /code/
 }
 
