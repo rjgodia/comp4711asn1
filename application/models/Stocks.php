@@ -11,10 +11,11 @@
  *
  * @author rjgodia
  */
-class Stocks extends MY_Model{
+class Stocks extends MY_Model
+{
     //put your code here
     function __construct()
     {
-        parent:: __construct('Stocks', 'Code');
+        parent:: __construct('Stocks', 'Value');
     }
 }

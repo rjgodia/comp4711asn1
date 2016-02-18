@@ -19,18 +19,19 @@ class Trans extends MY_Model
         parent::__construct('transactions', 'DateTime');
     }
     
-    public function recent(){
+    function recent()
+    {
         $this->db->order_by($this->_keyField, 'desc');
         $this->db->limit(1);
         $query = $this->db->get($this->_tableName);
         return $query->result();
     }
     
-    public function getCol(){
+    function getCol()
+    {
         foreach ($this->Trans->recent() as $row)
-            {
-                return $row->Stock;
-            }
-          
+        {
+            return $row->Stock;
+        }
     }
 }
