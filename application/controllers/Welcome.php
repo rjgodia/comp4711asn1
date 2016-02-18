@@ -13,7 +13,7 @@ class Welcome extends Application
     function index()
     {
         $this->data['pagebody'] = 'homepage';
-        $this->data['title'] = 'Stock Ticker Updates';
+        $this->data['title'] = 'Stock Ticker';
         $this->data['stock_list'] = $this->Stocks->all();       
         $this->Players->getEquity();
         $this->data['player_list'] = $this->Players->all(); 

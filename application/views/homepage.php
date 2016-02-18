@@ -1,5 +1,5 @@
 <div class = "row">
-    
+    <div class="span12">test</div>
     <div class="span3">
         <table class="table table-hover">
             <thead>
@@ -8,7 +8,7 @@
                     <th>Value</th>
                     <th></th>
                 </tr>
-            </thead>            
+            </thead>
             {stock_list}
             <tr id="{Name}">
                 <td><a href="/history/{Code}">{Name}</a></td>
@@ -18,14 +18,14 @@
             {/stock_list}
         </table>
     </div>
-
-    <div class="span9">
+    
+     <div class="span9">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Player</th>
-                    <th>Cash</th>
-                    <th>Equity<th>
+                    <th>Stock</th>
+                    <th>Value</th>
+                    <th>Equity</th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,10 +35,12 @@
                 <td>{Cash}</td>
                 <td id="{Player}_eq">{Equity}</td>
                 <td id="{Player}_pic"></td>
-            </tr>
+            </tr>         
             {/player_list}
         </table>
     </div>
+    
+</div>
 
 <script>
     
@@ -63,6 +65,7 @@
         {
             row.className = "success";
             row.style = "font-weight: bold";
+            pic.style = "text-style: left";
             pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
         if(eq < 0)
