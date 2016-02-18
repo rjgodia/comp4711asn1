@@ -2,63 +2,36 @@
     <div class="span12">
         <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
     </div>
-    
-    <div id="legend" class="span12" style="display: none; overflow-y: scroll; max-height: 200px; margin-top: 0px">
-        <table class="table table-hover">
-            <thead>
-                <th>Legend</th>
-                <th></th>
-            </thead>
-            <tr class="info">
-                <td><img src="/assets/images/top_stocks.png" width="25px" height="25px"/></td>
-                <td>Top 3 Stocks</td>
-            </tr>
-            <tr class="success">
-                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/></td>
-                <td>Highest Player Net Worth</td>
-            </tr>
-            <tr class="warning">
-                <td><img src="/assets/images/top_cash.png" width="25px" height="25px"/></td>
-                <td>Highest Player Cash</td>
-            </tr>
-        </table>
-    </div>
-    
-    <div class="span4">
+    <div class="span3">
         <h4><u>Stocks Update</u></h4>
     </div>
-    <div class="span7">
+    <div class="span9">
         <h4><u>Player Standings</u></h4>
     </div>
-    <div class="span1">
-        <img id="on" src="/assets/images/qmark4.png" width="35px" height="35px" onclick="help(this.id)"/>
-    </div>
     
-    <div id="col1" class="span4" style="overflow-y: scroll; max-height: 200px; margin-top: 0px">
+    <div class="span3">
         <table class="table table-hover">
             <thead>
-                <th>Stock</th>
-                <th>Value</th>
-                <th></th>
+                <th style="width: 50%">Stock</th>
+                <th style="width: 50%">Value</th>
             </thead>
             {stock_list}
             <tr id="{Name}">
                 <td><a href="/history/{Code}">{Name}</a></td>
                 <td>{Value}</td>
-                <td id="{Name}_pic"></td>
             </tr>
             {/stock_list}
         </table>
     </div>
     
-    <div id="col2" class="span8" style="overflow-y: scroll; max-height: 200px; margin-top: 0px">
+    <div class="span9">
         <table class="table table-hover">
              <thead>
-                <th>Player</th>
-                <th>Cash</th>
-                <th>Equity</th>
-                <th>Net Worth</th>
-                <th></th>
+                <th style="width: 20%">Player</th>
+                <th style="width: 20%">Cash</th>
+                <th style="width: 20%">Equity</th>
+                <th style="width: 20%">Net Worth</th>
+                <th style="width: 10%"></th>
             </thead>
             {player_list}
             <tr id="{Player}">
@@ -69,30 +42,18 @@
                 <td id="{Player}_pic"></td>
             </tr>
             {/player_list}
+            <tr>
+                <td style="font-size: 10px">
+                    <img src="/assets/images/top_player.png" width="25px" height="25px"/> Highest Net worth
+                </td>
+                <td style="font-size: 10px">
+                    <img src="/assets/images/top_cash.png" width="25px" height="25px"/> Highest Cash worth
+                </td><td></td><td></td><td></td>
+            </tr>
         </table>
     </div>
-    
 </div>
 
-<script>
-    var speed = 400;
-    
-    function help(id)
-    {
-        if(id === 'on')
-        {
-            $('#legend').show(speed);
-            $('#'+id).attr('src','/assets/images/xmark.png');
-            $('#'+id).attr('id', 'off');
-        }
-        else
-        {
-            $('#legend').hide(speed);
-            $('#'+id).attr('src','/assets/images/qmark4.png');
-            $('#'+id).attr('id', 'on');
-        }
-    }
-</script>
 <script>
     
     var players = [];
@@ -145,7 +106,7 @@
         {
             row.className = "info";
             row.style = "font-weight: bold";
-            pic.innerHTML = '<img src="/assets/images/top_stocks.png" width="25px" height="25px"/>';
+            //pic.innerHTML = '<img src="/assets/images/top_stocks.png" width="25px" height="25px"/>';
         }
     }
     

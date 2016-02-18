@@ -35,6 +35,8 @@ Update 14: Modified stockticker database (Net = Cash + Equity)
 
 Update 15: Fixed Legend
 
+Update 16: Modified Homepage
+
 **************
 Coding Stylez:
 **************
