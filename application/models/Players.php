@@ -65,4 +65,12 @@ class Players extends MY_Model
         $this->db->where('stock', $stock);
         return $this->db->get('transactions')->result()[0]->TotalTrans;
     }
+
+    function getCol()
+    {
+        foreach ($this->Trans->recent() as $row)
+        {
+            return $row->Stock;
+        }
+    }
 }
