@@ -33,7 +33,7 @@
             </thead>
             {player_list}
             <tr id="{Player}">
-                <td><a href="/profile">{Player}</a></td>
+                <td><a href="/profile/{Player}">{Player}</a></td>
                 <td>{Cash}</td>
                 <td id="{Player}_eq">{Equity}</td>
                 <td id="{Player}_pic"></td>

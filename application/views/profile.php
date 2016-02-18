@@ -1,33 +1,42 @@
 <?php
-    function view(){
-        echo "TEST";
-    }
+function view(){
+    echo "TEST";
+}
 ?>
 <div>
-
-    <form>
-        Select the player who's portfolio you would like to view:
-        </br>
-        <select name="players">
+    <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Select Player
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
             {players}
-            <option value={Player}>{Player}</option>
+            <li><a href="/profile/{Player}">{Player}</a></li>
             {/players}
-        </select>
-        </br>
-        <input onclick="view()" type="button" value="View">
-    </form>
-    </br></br>
+        </ul>
+
+    </div>
+
+    </br>
     <h1>Trading Activity</h1>
-    <table style="width: 25%">
+    <table class="table table-striped table-hover">
+        <thead>
         <tr>
-            <td>Purchases/Sales:</td>
-            <td>Quantity:</td>
+            <th>Date</th>
+            <th>Player</th>
+            <th>Stock</th>
+            <th>Transaction</th>
+            <th>Quantity</th>
         </tr>
-        {history}
+        </thead>
+        {translist}
         <tr>
+            <td>{DateTime}</td>
+            <td>{Player}</td>
+            <td>{Stock}</td>
             <td>{Trans}</td>
             <td>{Quantity}</td>
         </tr>
-        {/history}
+        {/translist}
     </table>
 </div>

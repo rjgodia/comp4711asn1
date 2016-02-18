@@ -62,4 +62,12 @@ class Players extends MY_Model
         $query = $this->db->get('transactions');
         return $query->result()[0]->TotalSell;
     }
+
+    function getCol()
+    {
+        foreach ($this->Trans->recent() as $row)
+        {
+            return $row->Stock;
+        }
+    }
 }
