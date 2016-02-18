@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14.1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 03, 2016 at 06:51 PM
--- Server version: 5.6.26
--- PHP Version: 5.6.12
+-- Host: 127.0.0.1
+-- Generation Time: Feb 18, 2016 at 05:15 AM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,8 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `movements`
 --
 
-DROP TABLE IF EXISTS `movements`;
-CREATE TABLE IF NOT EXISTS `movements` (
+CREATE TABLE `movements` (
   `Datetime` varchar(19) DEFAULT NULL,
   `Code` varchar(4) DEFAULT NULL,
   `Action` varchar(4) DEFAULT NULL,
@@ -75,21 +74,21 @@ INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
 -- Table structure for table `players`
 --
 
-DROP TABLE IF EXISTS `players`;
-CREATE TABLE IF NOT EXISTS `players` (
+CREATE TABLE `players` (
   `Player` varchar(6) DEFAULT NULL,
-  `Cash` int(4) DEFAULT NULL
+  `Cash` int(4) DEFAULT NULL,
+  `Equity` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `players`
 --
 
-INSERT INTO `players` (`Player`, `Cash`) VALUES
-('Mickey', 1000),
-('Donald', 3000),
-('George', 2000),
-('Henry', 2500);
+INSERT INTO `players` (`Player`, `Cash`, `Equity`) VALUES
+('Mickey', 1000, 0),
+('Donald', 3000, 74600),
+('George', 2000, -24100),
+('Henry', 2500, -62000);
 
 -- --------------------------------------------------------
 
@@ -97,8 +96,7 @@ INSERT INTO `players` (`Player`, `Cash`) VALUES
 -- Table structure for table `stocks`
 --
 
-DROP TABLE IF EXISTS `stocks`;
-CREATE TABLE IF NOT EXISTS `stocks` (
+CREATE TABLE `stocks` (
   `Code` varchar(4) DEFAULT NULL,
   `Name` varchar(10) DEFAULT NULL,
   `Category` varchar(1) DEFAULT NULL,
@@ -123,8 +121,7 @@ INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
 -- Table structure for table `transactions`
 --
 
-DROP TABLE IF EXISTS `transactions`;
-CREATE TABLE IF NOT EXISTS `transactions` (
+CREATE TABLE `transactions` (
   `DateTime` varchar(19) DEFAULT NULL,
   `Player` varchar(6) DEFAULT NULL,
   `Stock` varchar(4) DEFAULT NULL,

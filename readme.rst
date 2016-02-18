@@ -25,6 +25,8 @@ Update 9: Sorted Homepage table + Color Coded rows
 
 Update 10: Added table row icons
 
+Update 11: Revised database (Added Equity column in Players table)
+
 **************
 Coding Stylez:
 **************
