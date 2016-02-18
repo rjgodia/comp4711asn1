@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2016 at 05:15 AM
+-- Generation Time: Feb 18, 2016 at 08:39 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -77,18 +77,19 @@ INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
 CREATE TABLE `players` (
   `Player` varchar(6) DEFAULT NULL,
   `Cash` int(4) DEFAULT NULL,
-  `Equity` int(11) NOT NULL DEFAULT '0'
+  `Equity` int(11) NOT NULL DEFAULT '0',
+  `Net` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `players`
 --
 
-INSERT INTO `players` (`Player`, `Cash`, `Equity`) VALUES
-('Mickey', 1000, 0),
-('Donald', 3000, 74600),
-('George', 2000, -24100),
-('Henry', 2500, -62000);
+INSERT INTO `players` (`Player`, `Cash`, `Equity`, `Net`) VALUES
+('Mickey', 1000, 0, 1000),
+('Donald', 3000, 95200, -92200),
+('George', 2000, 46100, -44100),
+('Henry', 2500, 158000, -155500);
 
 -- --------------------------------------------------------
 
