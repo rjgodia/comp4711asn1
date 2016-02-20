@@ -1,16 +1,47 @@
-#######################
-Starter Webapp - Quotes
-#######################
+##############################
+Starter Webapp - Stock Ticker
+##############################
 
 **************
 Changelog
 **************
-Update 1: Added coding style and inital project setup
+Update 1: Added coding style and initial project setup
+
+Update 2: Created MVC for Stocks
+
+Update 3: Created MVC for Leaderboards
+
+Update 4: Created MVC for Movements
+
+Update 5: Created MVC for Transaction
+
+Update 6: Added History Page
+
+Update 7: Updated Homepage
+
+Update 8: Moved methods from Homepage to Welcome.php (Controller)
+
+Update 9: Sorted Homepage table + Color Coded rows
+
+Update 10: Added table row icons
+
+Update 11: Revised database (Added Equity column in Players table)
+
+Update 12: Updated Equity and Net Worth (revised stockticker database: added Net worth); Players sorted according to Net worth
+
+Update 13: Modified Homepage
+
+Update 14: Modified stockticker database (Net = Cash + Equity)
+
+Update 15: Fixed Legend
+
+Update 16: Modified Homepage
 
 **************
 Coding Stylez:
 **************
-if(){
+if()
+{
   /code/
 }
 
@@ -21,9 +52,9 @@ Chang Beom Seo
 
 RJ Godia
 
-Daniel-san Rees
+Daniel Rees
 
-Nico Somebody
+Nico Tan
 
 
 ***************

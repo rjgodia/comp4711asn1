@@ -5,10 +5,17 @@ $config['menu_choices'] = array(
 	'menudata' => array(
 		array('name' => 'Home', 'link' => '/'),
 		array('name' => 'Play', 'link' => '/play'),
+                array('name' => 'Stock History', 'link' => '/history'),
+		array('name' => 'Portfolio', 'link' => '/profile'),
 		array('name' => 'About', 'link' => '/about'),
 	)
 );
 
+$config['menu_choices_right'] = array(
+	'menudata' => array(
+		array('name' => 'Login', 'link' => '/login'),
+	)
+);
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -31,7 +38,7 @@ $config['menu_choices'] = array(
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = '/';
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +50,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

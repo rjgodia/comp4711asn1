@@ -14,16 +14,20 @@ if (!defined('APPPATH'))
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>{title}</title>
+        <meta charset="utf-8"/>
         <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        
     </head>
     <body>
         <div class="container">
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
-					{menubar} 
+					{menubar}
+					{menubar_right}
 				</div>
             </div>           
             <div id="content">

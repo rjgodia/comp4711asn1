@@ -1,3 +1,4 @@
+
 </br>
 <img class="center-block" src="/assets/images/homeimage.jpg"/>
 </br>
@@ -60,9 +61,12 @@ possible, is even higher.
 
 <h4>Created by</h4>
 Danny Seo
+</br>
 Daniel Rees
-RJ Godia
-Nico I don't know his last name
-
+</br>
+Ralph Godia
+</br>
+Nico Tan
+</br>
 </br>
 </br>
