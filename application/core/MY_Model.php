@@ -15,6 +15,8 @@ interface Active_record {
 //  Utility methods
 //---------------------------------------------------------------------------
 
+    function getcsv($url);
+    
     /**
      * Return the number of records in this table.
      * @return int The number of records in this table
@@ -104,6 +106,7 @@ interface Active_record {
      * @return mixed The selected records, as an array of records
      */
     function some($what, $which);
+    
 }
 
 /**
@@ -138,6 +141,27 @@ class MY_Model extends CI_Model implements Active_Record {
         $this->_keyField = $keyfield;
     }
 
+    function getcsv($url)
+    {
+        $assocData = array();
+        $headerRecord = array();
+        if( ($handle = fopen( $url, "r")) !== FALSE) {
+            $rowCounter = 0;
+            while (($rowData = fgetcsv($handle, 0, ",")) !== FALSE) {
+                if( 0 === $rowCounter) {
+                    $headerRecord = $rowData;
+                } else {
+                    foreach( $rowData as $key => $value) {
+                        $assocData[ $rowCounter - 1][ $headerRecord[ $key] ] = $value;
+                    }
+                }
+                $rowCounter++;
+            }
+            fclose($handle);
+        }
+        return $assocData;
+    }
+    
 //---------------------------------------------------------------------------
 //  Utility methods
 //---------------------------------------------------------------------------
@@ -262,6 +286,9 @@ class MY_Model extends CI_Model implements Active_Record {
         else
             return null;
     }
+    
+    
+
 
 }
 
