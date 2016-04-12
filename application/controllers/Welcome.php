@@ -19,7 +19,7 @@ class Welcome extends Application
         //$this->data['stock_list'] = $this->Stocks->all();
         $this->Players->getEquity();
         $this->Players->getNet();
-        $this->data['player_list'] = $this->Players->all(); 
+        $this->data['player_list'] = $this->Players->all();
         $this->render();
     }
 }
