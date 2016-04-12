@@ -17,8 +17,8 @@
             </thead>
             {stock_list}
             <tr id="{Name}">
-                <td><a href="/history/{Code}">{Name}</a></td>
-                <td>{Value}</td>
+                <td><a href="/history/{Code}">{name}</a></td>
+                <td>{value}</td>
             </tr>
             {/stock_list}
         </table>

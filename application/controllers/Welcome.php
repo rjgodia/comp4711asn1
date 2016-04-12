@@ -6,6 +6,7 @@ class Welcome extends Application
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Moves');
     }
     //-------------------------------------------------------------
     //  The normal pages
@@ -14,7 +15,8 @@ class Welcome extends Application
     {
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
-        $this->data['stock_list'] = $this->Stocks->all();
+        $this->data['stock_list'] = $this->Moves->getStockAll();
+        //$this->data['stock_list'] = $this->Stocks->all();
         $this->Players->getEquity();
         $this->Players->getNet();
         $this->data['player_list'] = $this->Players->all(); 

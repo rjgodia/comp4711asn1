@@ -363,6 +363,26 @@ class MY_Model2 extends MY_Model {
         $query = $this->db->get($this->_tableName);
         return $query->result();
     }
+    
+    function getStockAll(){
+        $assocData = array();
+        $headerRecord = array();
+        if( ($handle = fopen( "http://bsx.jlparry.com/data/stocks", "r")) !== FALSE) {
+            $rowCounter = 0;
+            while (($rowData = fgetcsv($handle, 0, ",")) !== FALSE) {
+                if( 0 === $rowCounter) {
+                    $headerRecord = $rowData;
+                } else {
+                    foreach( $rowData as $key => $value) {
+                        $assocData[ $rowCounter - 1][ $headerRecord[ $key] ] = $value;
+                    }
+                }
+                $rowCounter++;
+            }
+            fclose($handle);
+        }
+        return $assocData;
+    }
 
 }
 
