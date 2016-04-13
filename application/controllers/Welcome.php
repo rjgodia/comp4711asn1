@@ -11,15 +11,18 @@ class Welcome extends Application
     //-------------------------------------------------------------
     //  The normal pages
     //-------------------------------------------------------------
-    function index()
+    
+	function index()
     {
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
-        $this->data['stock_list'] = $this->Stocks->getcsv("http://bsx.jlparry.com/data/stocks");
+        //$this->data['stock_list'] = $this->Stocks->getcsv("http://bsx.jlparry.com/data/stocks");
         //$this->data['stock_list'] = $this->Stocks->all();
         $this->Players->getEquity();
         $this->Players->getNet();
         $this->data['player_list'] = $this->Players->all();
-        $this->render();
+        $this->data['stock_list'] = $this->Stocks->recent_stock("http://bsx.jlparry.com/data/stocks");
+		
+		$this->render();
     }
 }
