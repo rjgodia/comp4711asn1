@@ -2,11 +2,34 @@
     <div class="span12">
         <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
     </div>
+    
     <div class="span3">
-        <h4><u>Stocks Update</u></h4>
+        <h4><u>Recent Movements</u></h4>
     </div>
-    <div class="span9">
+    
+    <div class="span3">
+        <h4><u>Current Stocks</u></h4>
+    </div>
+    
+    <div class="span6">
         <h4><u>Player Standings</u></h4>
+    </div>
+    
+    <div class="span3">
+        <table class="table table-hover">
+            <thead>
+                <th style="width: 33%">Code</th>
+                <th style="width: 33%">Action</th>
+                <th style="width: 33%">Amount</th>
+            </thead>
+            {recent_moves}
+            <tr id="{seq}_{action}">
+                <td>{code}</td>
+                <td id="{seq}_{action}_img">{action}</td>
+                <td>{amount}</td>
+            </tr>
+            {/recent_moves}
+        </table>
     </div>
     
     <div class="span3">
@@ -16,15 +39,15 @@
                 <th style="width: 50%">Value</th>
             </thead>
             {stock_list}
-            <tr id="{name}">
-                <td><a href="/history/{Code}">{name}</a></td>
+            <tr id="cs_{code}">
+                <td><a href="/history/{Code}">{code}</a></td>
                 <td>{value}</td>
             </tr>
             {/stock_list}
         </table>
     </div>
     
-    <div class="span9">
+    <div class="span6">
         <table class="table table-hover">
              <thead>
                 <th style="width: 20%">Player</th>
@@ -53,16 +76,15 @@
         </table>
     </div>
 </div>
-
 <script>
     var stocks =[];
     var players = [];
     var pcash = [];
     
-    {stock_list}stocks.push('{name}');{/stock_list}
+    {stock_list}stocks.push('cs_'+'{code}');{/stock_list}
     {player_list}players.push({Net});{/player_list}
     {player_list}pcash.push({Cash});{/player_list}
-        
+    
     function colorCodeStocks(id)
     {
         var row = document.getElementById(id);
@@ -98,6 +120,38 @@
             pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
     }
-    {player_list} colorCodePlayers('{Player}', {Net}, {Cash}); {/player_list}
-    {stock_list}colorCodeStocks('{name}');{/stock_list}
+    
+    function colorCodeRecentMoves(code, action)
+    {
+        var c = document.getElementById(code);
+        var a = document.getElementById(action);
+        
+        if(a.innerHTML === 'up')
+        {
+            a.innerHTML = '<img src="/assets/images/up.png" width="25px" height="25px"/>';
+            c.className = 'info';
+        }
+        if(a.innerHTML === 'down')
+        {
+            a.innerHTML = '<img src="/assets/images/down.png" width="25px" height="25px"/>';
+            c.className = 'error';
+        }
+        if(a.innerHTML === 'div')
+        {
+            a.innerHTML = '<img src="/assets/images/div.png" width="25px" height="25px"/>';
+            c.className = 'warning';
+        }
+    }
+    
+    {recent_moves}
+        colorCodeRecentMoves('{seq}_{action}', '{seq}_{action}_img');
+    {/recent_moves}
+    
+    {player_list}
+        colorCodePlayers('{Player}', {Net}, {Cash});
+    {/player_list}
+    
+    {stock_list}
+        colorCodeStocks('cs_{code}');
+    {/stock_list}
 </script>
