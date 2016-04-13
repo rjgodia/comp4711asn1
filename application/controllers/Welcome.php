@@ -16,13 +16,12 @@ class Welcome extends Application
     {
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
-        //$this->data['stock_list'] = $this->Stocks->getcsv("http://bsx.jlparry.com/data/stocks");
         //$this->data['stock_list'] = $this->Stocks->all();
         $this->Players->getEquity();
         $this->Players->getNet();
         $this->data['player_list'] = $this->Players->all();
         $this->data['stock_list'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
 		
-		$this->render();
+        $this->render();
     }
 }
