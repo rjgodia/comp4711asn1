@@ -20,7 +20,6 @@ if (!defined('APPPATH'))
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        
     </head>
     <body>
         <div class="container">
