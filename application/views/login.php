@@ -23,6 +23,8 @@
 	</div>
 </form>
 
+<button class="btn btn-primary"><a href="<?php echo site_url('register'); ?>">Temp Register Button</button>
+
 
 
 

@@ -41,8 +41,16 @@ class Login extends Application {
 	}
 	
 	function verify(){
-		
-        if ($this->input->post('username') !== null) {
+	
+            $trigger = false;
+            $query = $this->db->get('users');
+            foreach ($query->result() as $row)
+            {
+                if($row->username == $this->input->post('username') && $row->password == $this->input->post('password')){
+                    $trigger = true;
+                }
+            }
+        if ($trigger = true) {
             $this->session->set_userdata('usr', $this->input->post('username'));
             redirect('/');
         }
