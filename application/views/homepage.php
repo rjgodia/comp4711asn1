@@ -16,7 +16,7 @@
                 <th style="width: 50%">Value</th>
             </thead>
             {stock_list}
-            <tr id="{Name}">
+            <tr id="{name}">
                 <td><a href="/history/{Code}">{name}</a></td>
                 <td>{value}</td>
             </tr>
@@ -55,21 +55,24 @@
 </div>
 
 <script>
-    
-    var players = [];
     var stocks =[];
+    var players = [];
     var pcash = [];
     
+    {stock_list}stocks.push('{name}');{/stock_list}
     {player_list}players.push({Net});{/player_list}
-    {stock_list}stocks.push({Value});{/stock_list}
     {player_list}pcash.push({Cash});{/player_list}
         
-    /*
-     * color codes the player according to equity and cash
-     * green    - highest net worth
-     * red      - negative net worth
-     */
-
+    function colorCodeStocks(id)
+    {
+        var row = document.getElementById(id);
+        if(stocks[0] === id || stocks[1] === id || stocks[2] === id)
+        {
+            row.style = "font-weight: bold";
+            row.className = "info";
+        }
+    }
+    
     function colorCodePlayers(id, net, cash)
     {
         var row = document.getElementById(id);
@@ -95,21 +98,6 @@
             pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
     }
-    /*
-     * color codes top 3 stocks according to its value
-     */
-    function colorCodeStocks(id, val)
-    {
-        var row = document.getElementById(id);
-        var pic = document.getElementById(id+'_pic');
-        if(stocks[0] === val || stocks[1] === val || stocks[2] === val)
-        {
-            row.className = "info";
-            row.style = "font-weight: bold";
-            //pic.innerHTML = '<img src="/assets/images/top_stocks.png" width="25px" height="25px"/>';
-        }
-    }
-    
     {player_list} colorCodePlayers('{Player}', {Net}, {Cash}); {/player_list}
-    {stock_list} colorCodeStocks('{Name}', {Value}); {/stock_list}
+    {stock_list}colorCodeStocks('{name}');{/stock_list}
 </script>
