@@ -13,7 +13,7 @@ class History extends Application
     public function index()
     {
             $this->data['pagebody'] = 'history';
-            $this->data['stocks'] = $this->Stocks->all();
+            $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['movelist'] = $this->Moves->all();
             $this->data['translist'] = $this->Trans->all();
             $this->data['title'] = "Recent History";
@@ -28,9 +28,9 @@ class History extends Application
     {
         $this->data['pagebody'] = 'history';
         $this->data['title'] = $stock . " History";
-        $this->data['stocktype'] = $this->Moves->some("Code", $stock);
+        $this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock);
         $this->data['translist'] = $this->Trans->some("Stock", $stock);
-        $this->data['stocks'] = $this->Stocks->all();
+        $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
         $this->data['movelist'] = $this->Moves->all();
         
         $this->render();
