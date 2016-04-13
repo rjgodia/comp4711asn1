@@ -15,7 +15,9 @@ interface Active_record {
 //  Utility methods
 //---------------------------------------------------------------------------
 
-    function getcsv($url);
+	function getData($filename);
+	
+	function getDataForName($filename, $stockname);
     
     /**
      * Return the number of records in this table.
@@ -141,26 +143,44 @@ class MY_Model extends CI_Model implements Active_Record {
         $this->_keyField = $keyfield;
     }
 
-    function getcsv($url)
-    {
-        $assocData = array();
-        $headerRecord = array();
-        if( ($handle = fopen( $url, "r")) !== FALSE) {
-            $rowCounter = 0;
-            while (($rowData = fgetcsv($handle, 0, ",")) !== FALSE) {
-                if( 0 === $rowCounter) {
-                    $headerRecord = $rowData;
-                } else {
-                    foreach( $rowData as $key => $value) {
-                        $assocData[ $rowCounter - 1][ $headerRecord[ $key] ] = $value;
-                    }
-                }
-                $rowCounter++;
+   
+    function getData($filename)
+	{
+		$delimiter = ",";
+		
+	
+		$header = NULL;
+		$data = array();
+		if (($handle = fopen($filename, 'r')) !== FALSE)
+		{
+			while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE)
+			{
+				if(!$header)
+					$header = $row;
+				else
+					$data[] = array_combine($header, $row);
+			}
+			fclose($handle);
+		}
+		return $data;
+	}
+	
+	function getDataForName($filename, $stockname)
+	{
+		$getAll = $this->getData($filename);
+		
+		 $result = array();
+        // loop through array
+        foreach ($getAll as $row)
+        {
+            // search array for code that matches stock id and put into result array
+            if ($row["code"] == $stockname)
+            {
+                $result[] = $row;
             }
-            fclose($handle);
         }
-        return $assocData;
-    }
+        return $result;
+	}
     
 //---------------------------------------------------------------------------
 //  Utility methods
@@ -391,26 +411,6 @@ class MY_Model2 extends MY_Model {
         return $query->result();
     }
     
-    function getStockAll(){
-        $assocData = array();
-        $headerRecord = array();
-        if( ($handle = fopen( "http://bsx.jlparry.com/data/stocks", "r")) !== FALSE) {
-            $rowCounter = 0;
-            while (($rowData = fgetcsv($handle, 0, ",")) !== FALSE) {
-                if( 0 === $rowCounter) {
-                    $headerRecord = $rowData;
-                } else {
-                    foreach( $rowData as $key => $value) {
-                        $assocData[ $rowCounter - 1][ $headerRecord[ $key] ] = $value;
-                    }
-                }
-                $rowCounter++;
-            }
-            fclose($handle);
-        }
-        return $assocData;
-    }
-
 }
 
 /* End of file */

@@ -17,7 +17,7 @@
   </a>
   <ul class="dropdown-menu">  
       {stocks}
-      <li><a href="/history/{Code}">{Name}</a></li> 
+      <li><a href="/history/{code}">{code}</a></li> 
       {/stocks}
   </ul>
 </div>
@@ -36,10 +36,10 @@
         </thead>
         {stocktype}
         <tr>
-            <td>{Datetime}</td>
-            <td>{Code}</td>
-            <td>{Action}</td>
-            <td>{Amount}</td>
+            <td>{datetime}</td>
+            <td>{code}</td>
+            <td>{action}</td>
+            <td>{amount}</td>
         </tr>
         {/stocktype}
     </table>

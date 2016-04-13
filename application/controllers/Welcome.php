@@ -21,7 +21,7 @@ class Welcome extends Application
         $this->Players->getEquity();
         $this->Players->getNet();
         $this->data['player_list'] = $this->Players->all();
-        $this->data['stock_list'] = $this->Stocks->recent_stock("http://bsx.jlparry.com/data/stocks");
+        $this->data['stock_list'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
 		
 		$this->render();
     }
