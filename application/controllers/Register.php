@@ -33,10 +33,27 @@ class Register extends Application {
 		
 		$this->render();
 	}
+        function registerUser(){
+            $username =  $this->input->post('username');
+            $avatar = $this->input->post('Avatar');
+            $password = $this->input->post('password');
+            
+            $data = array(
+            'username' => $username ,
+            'password' => $password ,
+            'avatar' => $avatar
+            );
+
+            $this->db->insert('users', $data); 
+            
+            //$this->Session->setFlash('UserCreated');
+            redirect('/login');
+        }
+        
         function reg(){
             //leave this for now
             $test1 = 'G03';
-            $test2 = 'Cats';
+            $test2 = 'Nice Servo xD';
             $test3 = 'tuesday';
             //$url = 'http://comp4711asn1.local:8080/register';
             $url = 'http://bsx.jlparry.com/register';
