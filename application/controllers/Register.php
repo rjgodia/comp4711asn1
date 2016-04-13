@@ -28,26 +28,42 @@ class Register extends Application {
 	//-------------------------------------------------------------
 	function index()
 	{
-		$this->data['pagebody'] = 'register';	// this is the view we want shown
-		$this->data['title'] = "Register";
-		
-		$this->render();
+            $this->data['pagebody'] = 'register';	// this is the view we want shown
+            $this->data['title'] = "Register";
+
+            $this->render();
 	}
-        function registerUser(){
+        function registerUser()
+        {
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']	= '100';
+            $config['max_width']  = '1024';
+            $config['max_height']  = '768';
+            
+            $this->load->library('upload', $config);
+            
+            $this->upload->do_upload('imgupload');
+            
+            echo 'registerUser called';
+            
+            /*
             $username =  $this->input->post('username');
             $avatar = $this->input->post('Avatar');
             $password = $this->input->post('password');
-            
+
             $data = array(
             'username' => $username ,
             'password' => $password ,
             'avatar' => $avatar
             );
 
-            $this->db->insert('users', $data); 
-            
+            $this->db->insert('users', $data);
+
             //$this->Session->setFlash('UserCreated');
-            redirect('/login');
+             * 
+             */
+            //redirect('/register');
         }
         
         function reg(){
