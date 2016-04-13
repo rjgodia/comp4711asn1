@@ -76,12 +76,13 @@
         </table>
     </div>
 </div>
+
 <script>
     var stocks =[];
     var players = [];
     var pcash = [];
     
-    {stock_list}stocks.push('cs_'+'{code}');{/stock_list}
+    {stock_list}stocks.push('cs_{code}');{/stock_list}
     {player_list}players.push({Net});{/player_list}
     {player_list}pcash.push({Cash});{/player_list}
     
@@ -142,6 +143,7 @@
             c.className = 'warning';
         }
     }
+    
     
     {recent_moves}
         colorCodeRecentMoves('{seq}_{action}', '{seq}_{action}_img');
