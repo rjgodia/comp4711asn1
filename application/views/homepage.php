@@ -3,7 +3,14 @@
         <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
     </div>
     
-    <div class="span12" id="status">
+    <div class="span12">
+        <table class="table">
+            <tr class="success">
+                <td>
+                    <p class="text-center" id="status"><img src="/assets/images/exclamation.png" width="25px" height="25px"/><b>Game Status:</b> </p>
+                </td>
+            </tr>
+        </table>
     </div>
     
     <div class="span2">
@@ -141,7 +148,7 @@
             default:
                 break;
         }
-        status.innerHTML = "{game_status}Round {round}! The stock exchange is " + gameState + "  for {countdown} seconds. It will be open at {alarm}. Current time is {now}.{/game_status}";
+        status.innerHTML += " {game_status}Round {round}! The stock exchange is " + gameState + "  for {countdown} seconds. It will be open at {alarm}. Current time is {now}.{/game_status}";
     }
     
     updateStatus("status");
