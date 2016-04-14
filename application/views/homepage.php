@@ -3,16 +3,33 @@
         <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
     </div>
     
-    <div class="span3">
-        <h4><u>Recent Movements</u></h4>
-    </div>    
+    
     <div class="span2">
         <h4><u>Current Stocks</u></h4>
+    </div>
+    <div class="span3">
+        <h4><u>Recent Movements</u></h4>
     </div>
     <div class="span7">
         <h4><u>Player Standings</u></h4>
     </div>
 
+    <div class="span2">
+        <table class="table table-hover">
+            <thead>
+                <th style="width: 50%">Stock</th>
+                <th style="width: 50%">Value</th>
+            </thead>
+            {stock_list}
+            <tr id="cs_{code}">
+                <td><a href="/history/{Code}">{code}</a></td>
+                <td>{value}</td>
+            </tr>
+            {/stock_list}
+        </table>
+    </div>
+
+    
     <div class="span3">
         <table class="table table-hover">
             <thead>
@@ -30,20 +47,6 @@
         </table>
     </div>
     
-    <div class="span2">
-        <table class="table table-hover">
-            <thead>
-                <th style="width: 50%">Stock</th>
-                <th style="width: 50%">Value</th>
-            </thead>
-            {stock_list}
-            <tr id="cs_{code}">
-                <td><a href="/history/{Code}">{code}</a></td>
-                <td>{value}</td>
-            </tr>
-            {/stock_list}
-        </table>
-    </div>
     
     <div class="span7">
         <table class="table table-hover">
