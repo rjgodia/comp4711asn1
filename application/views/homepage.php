@@ -3,6 +3,8 @@
         <img id="banner" src="/assets/images/banner.jpg" height="70px"/>
     </div>
     
+    <div class="span12" id="status">
+    </div>
     
     <div class="span2">
         <h4><u>Current Stocks</u></h4>
@@ -115,6 +117,34 @@
         }
     }
     
+    function updateStatus($id)
+    {
+        var gameState = "";
+        var status = document.getElementById($id);
+        var state = {game_status}{state}{/game_status};
+        switch(state)
+        {
+            case 0:
+                gameState = "close";
+                break;
+            case 1:
+                gameState = "setup";
+                break;
+            case 2:
+                gameState = "ready";
+                break;
+            case 3:
+                gameState = "open";
+                break;
+            case 4:
+                gameState = "over";
+            default:
+                break;
+        }
+        status.innerHTML = "{game_status}Round {round}! The stock exchange is " + gameState + "  for {countdown} seconds. It will be open at {alarm}. Current time is {now}.{/game_status}";
+    }
+    
+    updateStatus("status");
     
     {recent_moves}
         colorCodeRecentMoves('{seq}_{action}', '{seq}_{action}_img');
