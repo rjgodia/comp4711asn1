@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2016 at 08:39 AM
+-- Generation Time: Apr 14, 2016 at 03:29 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -87,9 +87,9 @@ CREATE TABLE `players` (
 
 INSERT INTO `players` (`Player`, `Cash`, `Equity`, `Net`) VALUES
 ('Mickey', 1000, 0, 1000),
-('Donald', 3000, 95200, -92200),
-('George', 2000, 46100, -44100),
-('Henry', 2500, 158000, -155500);
+('Donald', 3000, 95200, 98200),
+('George', 2000, 46100, 48100),
+('Henry', 2500, 158000, 160500);
 
 -- --------------------------------------------------------
 
@@ -148,6 +148,26 @@ INSERT INTO `transactions` (`DateTime`, `Player`, `Stock`, `Trans`, `Quantity`) 
 ('2016.02.01-09:01:50', 'Donald', 'TECH', 'sell', 100),
 ('2016.02.01-09:01:55', 'George', 'OIL', 'buy', 100),
 ('2016.02.01-09:01:60', 'George', 'IND', 'buy', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `username` varchar(229) NOT NULL,
+  `password` varchar(299) NOT NULL,
+  `avatar` varchar(299) DEFAULT NULL,
+  `role` varchar(299) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`username`, `password`, `avatar`, `role`) VALUES
+('dan', '$2y$10$g3p7tO8uDXWYqVMlWh1whO9H6KLSPFe3C453EwYDQBOW0Rje/.HRO', NULL, 'user');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

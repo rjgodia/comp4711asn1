@@ -7,6 +7,7 @@
         function __construct() 
         {
             parent::__construct();
+            $this->restrict(array('user','admin'));
         }
 
         function index()

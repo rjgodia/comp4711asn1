@@ -56,13 +56,14 @@ class Register extends Application {
             $data = array(
             'username' => $username ,
             'password' => $password ,
-            'avatar' => $avatar
+            'avatar' => $avatar,
+            'role' => 'user'
             );
 
             $this->db->insert('users', $data);
 
             //$this->Session->setFlash('UserCreated');
-            redirect('/register');
+            redirect('/login');
         }
         
         function reg(){
