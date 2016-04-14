@@ -43,6 +43,7 @@ class Application extends CI_Controller {
                 $mychoices = array('menudata' => $this->makemenu());
                 $this->data['menubar'] = $this->parser->parse('_menubar', $mychoices, true);
 		$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
+                $this->data['menubar_right'] = $this->parser->parse('_menubar_right', $this->config->item('menu_choices_right'), true);
 		// finally, build the browser page!
 		$this->data['data'] = &$this->data;
 		$this->parser->parse('_template', $this->data);
@@ -89,12 +90,12 @@ class Application extends CI_Controller {
                     //admin and user shit in here
                     $menu[] = array('name' => 'Play', 'link' => '/play');
                 }
-                $menu[] = array('name' => "".$userName." - Logout", 'link' => '/login/logout');
+                //$menu[] = array('name' => "".$userName." - Logout", 'link' => '/login/logout');
                 if ($userRole == ROLE_ADMIN) {
                         //admin shit in here
                 }
                 }else{
-                    $menu[] = array('name' => 'Login', 'link' => '/login');
+                    //$menu[] = array('name' => 'Login', 'link' => '/login');
                 }
             return $menu;
 	}
