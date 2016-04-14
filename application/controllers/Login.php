@@ -36,8 +36,8 @@ class Login extends Application {
 	
 	function logout()
 	{
-		$this->session->unset_userdata('usr');
-        redirect('/');
+		$this->session->sess_destroy();
+                redirect('/');
 	}
 	
 	function verify(){
@@ -47,6 +47,7 @@ class Login extends Application {
             {
                 echo $key;
                 $this->session->set_userdata('usr',$key);
+                $this->session->set_userdata('userRole',$user->role);
             }
             redirect('/');
     }
