@@ -41,18 +41,13 @@ class Login extends Application {
 	}
 	
 	function verify(){
-	
-            $trigger = false;
-            $query = $this->db->get('users');
-            foreach ($query->result() as $row)
+            $key = $_POST['username'];
+            $user = $this->Users->get($key);
+            if (password_verify($this->input->post('password'),$user->password))
             {
-                if($row->username == $this->input->post('username') && $row->password == $this->input->post('password')){
-                    $trigger = true;
-                }
+                echo $key;
+                $this->session->set_userdata('usr',$key);
             }
-        if ($trigger = true) {
-            $this->session->set_userdata('usr', $this->input->post('username'));
             redirect('/');
-        }
     }
 }

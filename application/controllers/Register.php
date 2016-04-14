@@ -22,6 +22,7 @@ class Register extends Application {
 	function __construct()
 	{
 		parent::__construct();
+                $this->load->helper('url');
 	}
 	//-------------------------------------------------------------
 	//  The normal pages
@@ -43,14 +44,14 @@ class Register extends Application {
             
             $this->load->library('upload', $config);
             
-            $this->upload->do_upload('imgupload');
+            //$this->upload->do_upload('imgupload');
             
             echo 'registerUser called';
             
-            /*
+            
             $username =  $this->input->post('username');
-            $avatar = $this->input->post('Avatar');
-            $password = $this->input->post('password');
+            $avatar = $this->input->post('imgupload');
+            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 
             $data = array(
             'username' => $username ,
@@ -61,9 +62,7 @@ class Register extends Application {
             $this->db->insert('users', $data);
 
             //$this->Session->setFlash('UserCreated');
-             * 
-             */
-            //redirect('/register');
+            redirect('/register');
         }
         
         function reg(){
@@ -84,7 +83,6 @@ class Register extends Application {
 
             $response = curl_exec( $ch );
             var_dump($response);
-   
         }
 }
 
