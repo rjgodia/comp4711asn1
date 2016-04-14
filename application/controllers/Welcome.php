@@ -17,14 +17,12 @@ class Welcome extends Application
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
         
-        $this->Players->getEquity();
-        $this->Players->getNet();
+        //$this->Players->getEquity();
+        //$this->Players->getNet();
+        
         $this->data['player_list'] = $this->Players->all();
-        /*
         $this->data['stock_list'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
         $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
-         * 
-         */
         $this->render();
     }
 }
