@@ -31,12 +31,16 @@ class Register extends Application {
 	{
             $this->data['pagebody'] = 'register';	// this is the view we want shown
             $this->data['title'] = "Register";
-
             $this->render();
 	}
+        
         function registerUser()
         {
+            $temp = explode(".", $_FILES["imgupload"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp);
+            
             $config['upload_path'] = './uploads/';
+            $config['file_name'] = $newfilename;
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size']	= '100';
             $config['max_width']  = '1024';
@@ -44,26 +48,35 @@ class Register extends Application {
             
             $this->load->library('upload', $config);
             
-            //$this->upload->do_upload('imgupload');
-            
-            echo 'registerUser called';
-            
-            
             $username =  $this->input->post('username');
-            $avatar = $this->input->post('imgupload');
             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-
-            $data = array(
-            'username' => $username ,
-            'password' => $password ,
-            'avatar' => $avatar,
-            'role' => 'user'
-            );
-
-            $this->db->insert('users', $data);
-
-            //$this->Session->setFlash('UserCreated');
-            redirect('/login');
+            
+            if($this->is_empty_field(array('username','password')))
+            {
+                redirect('/register');
+            }
+            else // successful register conditions
+            {
+                if(!$this->upload->do_upload('imgupload')) // faulty image upload
+                    $newfilename = 'default.jpg';
+                
+                $data = array(
+                    'username' => $username ,
+                    'password' => $password ,
+                    'avatar' => $newfilename,
+                    'role' => 'user');
+                $this->db->insert('users', $data);
+                //$this->Session->setFlash('UserCreated');
+                redirect('/login');
+            }
+        }
+        
+        function is_empty_field($field)
+        {
+            foreach($field as $f)
+                if(!$this->input->post($f))
+                    return true;
+            return false;
         }
         
         function reg(){

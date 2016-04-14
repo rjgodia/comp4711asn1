@@ -5,16 +5,14 @@
     
     <div class="span3">
         <h4><u>Recent Movements</u></h4>
-    </div>
-    
-    <div class="span3">
+    </div>    
+    <div class="span2">
         <h4><u>Current Stocks</u></h4>
     </div>
-    
-    <div class="span6">
+    <div class="span7">
         <h4><u>Player Standings</u></h4>
     </div>
-    
+
     <div class="span3">
         <table class="table table-hover">
             <thead>
@@ -32,7 +30,7 @@
         </table>
     </div>
     
-    <div class="span3">
+    <div class="span2">
         <table class="table table-hover">
             <thead>
                 <th style="width: 50%">Stock</th>
@@ -47,31 +45,32 @@
         </table>
     </div>
     
-    <div class="span6">
+    <div class="span7">
         <table class="table table-hover">
              <thead>
-                <th style="width: 20%">Player</th>
-                <th style="width: 20%">Cash</th>
-                <th style="width: 20%">Equity</th>
-                <th style="width: 20%">Net Worth</th>
                 <th style="width: 10%"></th>
+                <th style="width: 18%">Player</th>
+                <th style="width: 18%">Equity</th>
+                <th style="width: 18%">Net Worth</th>
+                <th style="width: 18%">Cash</th>
+                <th style="width: 18%"></th>
             </thead>
             {player_list}
-            <tr id="{Player}">
-                <td><a href="/profile/{Player}">{Player}</a></td>
-                <td id="{Player}_cash">{Cash}</td>
-                <td id="{Player}_eq">{Equity}</td>
-                <td id="{Player}_net">{Net}</td>
-                <td id="{Player}_pic"></td>
+            <tr id="{username}">
+                <td><img src="/uploads/{avatar}" width="25px" height="25px"/></td>
+                <td>{username}</td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> * </td>
             </tr>
             {/player_list}
+        </table>
+        
+        <table class="table">
             <tr>
-                <td style="font-size: 10px">
-                    <img src="/assets/images/top_player.png" width="25px" height="25px"/> Highest Net worth
-                </td>
-                <td style="font-size: 10px">
-                    <img src="/assets/images/top_cash.png" width="25px" height="25px"/> Highest Cash worth
-                </td><td></td><td></td><td></td>
+                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/> Highest Net Worth 
+                <img src="/assets/images/top_cash.png" width="25px" height="25px"/> Highest Cash Worth</td>
             </tr>
         </table>
     </div>
@@ -79,13 +78,8 @@
 
 <script>
     var stocks =[];
-    var players = [];
-    var pcash = [];
     
     {stock_list}stocks.push('cs_{code}');{/stock_list}
-    {player_list}players.push({Net});{/player_list}
-    {player_list}pcash.push({Cash});{/player_list}
-    
     function colorCodeStocks(id)
     {
         var row = document.getElementById(id);
@@ -93,32 +87,6 @@
         {
             row.style = "font-weight: bold";
             row.className = "info";
-        }
-    }
-    
-    function colorCodePlayers(id, net, cash)
-    {
-        var row = document.getElementById(id);
-        var pnet = document.getElementById(id+'_net');
-        var pic = document.getElementById(id+'_pic');
-        
-        /* negative net worth */
-        if(net <= 0) pnet.style = "color: red";
-        
-        /* player with highest cash value */
-        if(Math.max.apply(Math, pcash) === cash)
-        {
-            row.className = "warning";
-            row.style = "font-weight: bold";
-            pic.innerHTML = '<img src="/assets/images/top_cash.png" width="25px" height="25px"/>';
-        }
-        
-        if(players[0] === net)
-        {
-            row.className = "success";
-            row.style = "font-weight: bold";
-            pic.style = "text-style: left";
-            pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
     }
     
@@ -148,10 +116,6 @@
     {recent_moves}
         colorCodeRecentMoves('{seq}_{action}', '{seq}_{action}_img');
     {/recent_moves}
-    
-    {player_list}
-        colorCodePlayers('{Player}', {Net}, {Cash});
-    {/player_list}
     
     {stock_list}
         colorCodeStocks('cs_{code}');
