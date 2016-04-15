@@ -13,7 +13,7 @@
         function index()
         {
             $this->data['pagebody'] = 'play';
-            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+            $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
             $this->data['stock_list'] = $arr;
             $this->render();
         }
@@ -22,7 +22,7 @@
             $test1 = 'g03';
             $test2 = 'xD';
             $test3 = 'tuesday';
-            $url = 'http://bsx.jlparry.com/register';
+            $url = 'http://www.comp4711bsx.local/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
             $ch = curl_init( $url );

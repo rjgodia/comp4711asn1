@@ -6,32 +6,33 @@
 	</div>
 </form>
 
-<form action="/play/buy"  method="post" accept-charset="utf-8">	
-        <div class="btn-group">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            Select Stock
-            <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">  
-            {stock_list}
-            <li id="stock">{code}</li> 
-            {/stock_list}
-            </ul>
-        </div>
-
-	<div class="control-group">
-		<div class="input-prepend">
-			<span class="add-on"><i></i></span>
-			<input type="text" id="password" name="quant" placeholder="quant">
-		</div>
-	</div>
-	
-	
-	<div class="control-group">
-		<div class="controls">
-			<button type="submit" class="btn btn-primary">Buy Stock</button>
-		</div>
-	</div>
 	
 </form>
 
+<div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        {stock_list}
+        <tr>
+            <td>{code}</td>
+            <td>{name}</td>
+            <td>{value}</td>
+            <td>
+                <form action="/agent/exchange" method="post">
+                        <input id="stock" name="stock" type="hidden" value="{code}" />
+                        <input id="quantity" name="quantity" type="number" style="width:40px"/>
+                        <button id="buy" name="buy" type="submit" class="btn btn-primary">Buy</button>
+                        <button id="sell" name="sell" type="submit" class="btn btn-primary">Sell</button>
+                </form>  
+            </td>
+        </tr>
+        {/stock_list}
+    </table>
+    
+</div>
