@@ -16,6 +16,7 @@
             
             $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
             $this->data['stock_list'] = $arr;
+            $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
             $this->data['message'] = $this->session->flashdata('message_name');
             $this->render();
         }
@@ -54,37 +55,124 @@
             $token = $this->session->userdata('token');
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
-            $quantity = $this->input->post('quantity');;
+            $quantity = $this->input->post('quantity');
             $url = 'http://www.comp4711bsx.local/buy';
             $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
                     . $player . '&stock=' . $stock . '&quantity=' . $quantity;
 
-            $ch = curl_init( $url );
-            curl_setopt( $ch, CURLOPT_POST, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
-            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt( $ch, CURLOPT_HEADER, 0);
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            if(!$this->checkSufficientCash($stock,$quantity))
+            {
+                $this->session->set_flashdata('message_name', 'Insufficient Cash');
+                redirect('/play');
+            }
+            else
+            {
+                $ch = curl_init( $url );
+                curl_setopt( $ch, CURLOPT_POST, 1);
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt( $ch, CURLOPT_HEADER, 0);
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 
-            $response = curl_exec( $ch );
-            
-            try{
-                $x = new SimpleXMLElement($response);
-            }catch (Exception $e) { 
-                $this->session->set_flashdata('message_name', 'Error! The xml returned for buy is null. Sever is broken again');
-                redirect('/play');   
-            }
-            $message = new SimpleXMLElement($response);
-            if((String)$message->message[0] == ""){
+                $response = curl_exec( $ch );
+
+                try{
+                    $x = new SimpleXMLElement($response);
+                }catch (Exception $e) { 
+                    $this->session->set_flashdata('message_name', 'Error! The xml returned for buy is null. Sever is broken again');
+                    redirect('/play');   
+                }
+                $message = new SimpleXMLElement($response);
+                if((String)$message->message[0] == "")
+                {
+                // update player cash
+                $this->updatePlayerCash($stock, $quantity);
+                // add stock to holdings
+                // add to transactions
+
                 $this->session->set_flashdata('message_name', 'Stock has been purchased');
-            }else{
-                $this->session->set_flashdata('message_name', 'Error Buying Stock: ' . (String)$message->message[0]);
+                }else{
+                    $this->session->set_flashdata('message_name', 'Error Buying Stock: ' . (String)$message->message[0]);
+                }
+                redirect('/play');
             }
-            redirect('/play');
         }
+        
+        
+        function checkSufficientCash($stock, $quantity)
+        {
+            $currentUser = $this->Users->get($this->session->userdata('usr'));
+            $currentCash = $currentUser->cash;
+            
+            $stocks = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
+            $exepectedPurchase = $this->getTotalPurchase($stock, $quantity);
+            
+            if($exepectedPurchase <= $currentCash)
+                return true;
+            return false;
+        }
+        
+        function getTotalPurchase($stock, $quantity)
+        {
+            $expectedPurchase = 0;
+            foreach($stocks as $s)
+            {
+                if($s['code'] == $stock)
+                {
+                    $exepectedPurchase = $s['value'] * $quantity;
+                    break;
+                }
+            }
+            return $expectedPurchase;
+        }
+        
+        function updatePlayerCash($stock, $quantity)
+        {
+            $player = $this->session->userdata('usr');
+            $currentUser = $this->Users->get($this->session->userdata('usr'));
+            $currentCash = $currentUser->cash;
+            
+            $newTotal = $currentCash - $this->getTotalPurchase($stock, $quantity);
+            
+            $data = array(
+                "cash"=> $cash
+            );
+           
+            $this->db->where('username',$player);
+            $this->db->update('users',$data);
+        }
+        
+        
+        
         
         function sell(){
             redirect('/play');
         }
+        function getGameStatus($url)
+        {
+            $ch = curl_init($url);
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $response = curl_exec( $ch );
+            $res = new SimpleXMLElement($response);
+
+            $gameStatus = array(
+                "round" => (string)$res->round,
+                "state" => (int)$res->state,
+                "desc" => (string)$res->desc,
+                "current" => (string)$res->current,
+                "duration" => (string)$res->duration,
+                "upcoming" => (string)$res->upcoming,
+                "alarm" => (string)$res->alarm,
+                "now"=> (string)$res->now,
+                "countdown"=> (string)$res->countdown
+            );
+
+            return array($gameStatus);
+        }
+        
+        
     }
 ?>
