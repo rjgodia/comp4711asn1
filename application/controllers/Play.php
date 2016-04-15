@@ -13,7 +13,8 @@
         function index()
         {
             $this->data['pagebody'] = 'play';
-            $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
+            
+            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['stock_list'] = $arr;
             $this->render();
         }
@@ -22,7 +23,7 @@
             $test1 = 'g03';
             $test2 = 'xD';
             $test3 = 'tuesday';
-            $url = 'http://www.comp4711bsx.local/register';
+            $url = 'http://bsx.jlparry.com/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
             $ch = curl_init( $url );
@@ -49,9 +50,8 @@
             $team = $this->session->userdata('teamCode');
             $token = $this->session->userdata('token');
             $player = $this->session->userdata('usr');
-            $stock = 'IBM';
-            $quantity = '1';
-            
+            $stock = $this->input->post('stock');
+            $quantity = $this->input->post('quantity');;
             $url = 'http://bsx.jlparry.com/buy';
             $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
                     . $player . '&stock=' . $stock . '&quantity=' . $quantity;
@@ -65,7 +65,12 @@
 
             $response = curl_exec( $ch );
             var_dump($response);
-            
+            $this->session->set_flashdata('success', 'Stock purchased successfully.');
+            redirect('/play');
+        }
+        
+        function sell(){
+            redirect('/play');
         }
     }
 ?>
