@@ -14,13 +14,11 @@ class History extends Application
     {
             $this->data['pagebody'] = 'history';
             $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
-            $this->data['movelist'] = $this->Moves->all();
-            $this->data['translist'] = $this->Trans->all();
+
+            $stock = $this->Moves->getData("http://bsx.jlparry.com/data/movement/1");
+
             $this->data['title'] = "Recent History";
-            $recentStockMove = $this->Moves->getCol();
-            $recentStockTrans = $this->Trans->getCol();
-            $this->data['stocktype'] = $this->Moves->some("Code", $recentStockMove);
-            $this->data['translist'] = $this->Trans->some("Stock", $recentStockTrans);
+            $this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
             $this->render();
     }
     
