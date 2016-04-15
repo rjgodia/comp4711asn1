@@ -14,7 +14,7 @@
         {
             $this->data['pagebody'] = 'play';
             
-            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+            $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
             $this->data['stock_list'] = $arr;
             $this->data['message'] = $this->session->flashdata('message_name');
             $this->render();
@@ -24,7 +24,7 @@
             $test1 = 'g03';
             $test2 = 'xD';
             $test3 = 'tuesday';
-            $url = 'http://bsx.jlparry.com/register';
+            $url = 'http://www.comp4711bsx.local/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
             $ch = curl_init( $url );
@@ -41,9 +41,12 @@
             
             $token = new SimpleXMLElement($response);
             $token1 = $team->token[0];
-            
-            $this->session->set_userdata('token',(String)$token1);
-            $this->session->set_userdata('teamCode',(String)$team1);
+            if((String)$team->message[0] == ""){
+                $this->session->set_userdata('token',(String)$token1);
+                $this->session->set_userdata('teamCode',(String)$team1);
+            }else{
+               $this->session->set_flashdata('message_name', 'Could not register agent. Try again later.');
+            }
             redirect('/play');
         }
         
@@ -53,7 +56,7 @@
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
             $quantity = $this->input->post('quantity');;
-            $url = 'http://bsx.jlparry.com/buy';
+            $url = 'http://www.comp4711bsx.local/buy';
             $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
                     . $player . '&stock=' . $stock . '&quantity=' . $quantity;
 
