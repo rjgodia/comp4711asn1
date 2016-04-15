@@ -45,10 +45,12 @@ class Login extends Application {
             $user = $this->Users->get($key);
             if (password_verify($this->input->post('password'),$user->password))
             {
-                echo $key;
+                //echo $key;
                 $this->session->set_userdata('usr',$key);
                 $this->session->set_userdata('userRole',$user->role);
             }
+               
+            
             redirect('/');
     }
 }

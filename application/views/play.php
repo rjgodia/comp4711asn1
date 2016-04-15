@@ -24,12 +24,20 @@
             <td>{name}</td>
             <td>{value}</td>
             <td>
-                <form action="/agent/exchange" method="post">
+                <span style="float:left;">
+                <form action="/play/buy" method="post">
                         <input id="stock" name="stock" type="hidden" value="{code}" />
-                        <input id="quantity" name="quantity" type="number" style="width:40px"/>
+                        <input value="1" min="0" style="width:30px" id="quantity" name="quantity" type="number"/>
                         <button id="buy" name="buy" type="submit" class="btn btn-primary">Buy</button>
+                </form>
+                 </span> 
+                <span style="float:right;">
+                <form action="/play/sell" method="post">
+                        <input id="stock" name="stock" type="hidden" value="{code}" />
+                        <input value="1" min="0" style="width:30px" id="quantity" name="quantity" type="number"/>
                         <button id="sell" name="sell" type="submit" class="btn btn-primary">Sell</button>
-                </form>  
+                </form> 
+                </span>
             </td>
         </tr>
         {/stock_list}
