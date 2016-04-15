@@ -14,9 +14,9 @@
         {
             $this->data['pagebody'] = 'play';
             
-            $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
+            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['stock_list'] = $arr;
-            $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
+            $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
             $this->data['message'] = $this->session->flashdata('message_name');
             $this->render();
         }
@@ -25,7 +25,7 @@
             $test1 = 'g03';
             $test2 = 'xD';
             $test3 = 'tuesday';
-            $url = 'http://www.comp4711bsx.local/register';
+            $url = 'http://bsx.jlparry.com/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
             $ch = curl_init( $url );
@@ -56,11 +56,14 @@
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
             $quantity = $this->input->post('quantity');
-            $url = 'http://www.comp4711bsx.local/buy';
+            $url = 'http://bsx.jlparry.com/buy';
             $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
                     . $player . '&stock=' . $stock . '&quantity=' . $quantity;
 
-            if(!$this->checkSufficientCash($stock,$quantity))
+            //rj dont do it!!!
+            //pls for the love of god
+            //dont, it works
+            if($this->checkSufficientCash($stock,$quantity) === false)
             {
                 $this->session->set_flashdata('message_name', 'Insufficient Cash');
                 redirect('/play');
@@ -104,7 +107,7 @@
             $currentUser = $this->Users->get($this->session->userdata('usr'));
             $currentCash = $currentUser->cash;
             
-            $stocks = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
+//            $stocks = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $exepectedPurchase = $this->getTotalPurchase($stock, $quantity);
             
             if($exepectedPurchase <= $currentCash)
@@ -114,12 +117,13 @@
         
         function getTotalPurchase($stock, $quantity)
         {
+            $stocks = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $expectedPurchase = 0;
             foreach($stocks as $s)
             {
                 if($s['code'] == $stock)
                 {
-                    $exepectedPurchase = $s['value'] * $quantity;
+                    $expectedPurchase = $s['value'] * $quantity;
                     break;
                 }
             }
@@ -135,7 +139,7 @@
             $newTotal = $currentCash - $this->getTotalPurchase($stock, $quantity);
             
             $data = array(
-                "cash"=> $cash
+                "cash"=> $newTotal
             );
            
             $this->db->where('username',$player);
