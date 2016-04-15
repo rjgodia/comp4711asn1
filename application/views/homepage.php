@@ -71,7 +71,7 @@
                 <td>{username}</td>
                 <td> - </td>
                 <td> - </td>
-                <td> - </td>
+                <td> {cash} </td>
                 <td> * </td>
             </tr>
             {/player_list}
