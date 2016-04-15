@@ -30,7 +30,7 @@ class Login extends Application {
 	{
 		$this->data['pagebody'] = 'login';	// this is the view we want shown
 		$this->data['title'] = "Login";
-                echo $this->session->flashdata('message_name');
+                $this->data['message'] = $this->session->flashdata('message_name');
 		$this->render();
 	}
 	
