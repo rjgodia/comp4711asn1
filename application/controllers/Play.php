@@ -16,6 +16,7 @@
             
             $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['stock_list'] = $arr;
+            echo $this->session->flashdata('message_name');
             $this->render();
         }
         
@@ -65,7 +66,7 @@
 
             $response = curl_exec( $ch );
             var_dump($response);
-            $this->session->set_flashdata('success', 'Stock purchased successfully.');
+            $this->session->set_flashdata('message_name', 'Stock has been purchased');
             redirect('/play');
         }
         

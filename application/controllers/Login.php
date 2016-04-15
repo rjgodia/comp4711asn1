@@ -30,7 +30,7 @@ class Login extends Application {
 	{
 		$this->data['pagebody'] = 'login';	// this is the view we want shown
 		$this->data['title'] = "Login";
-		
+                echo $this->session->flashdata('message_name');
 		$this->render();
 	}
 	
@@ -48,6 +48,9 @@ class Login extends Application {
                 //echo $key;
                 $this->session->set_userdata('usr',$key);
                 $this->session->set_userdata('userRole',$user->role);
+            }else{
+                $this->session->set_flashdata('message_name', 'Wrong login');
+                redirect('/login');
             }
                
             
