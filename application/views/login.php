@@ -4,6 +4,7 @@
     </div>
     
     <div class="span3">
+        <h4>{message}</h4>
         <form id="loginForm" action="/login/verify"  method="post" accept-charset="utf-8">	
             <div class="control-group">
                 <div class="input-prepend">
