@@ -39,13 +39,12 @@
             $team = new SimpleXMLElement($response);
             $team1 = $team->team[0];
             
-            $token = new SimpleXMLElement($response);
             $token1 = $team->token[0];
             if((String)$team->message[0] == ""){
                 $this->session->set_userdata('token',(String)$token1);
                 $this->session->set_userdata('teamCode',(String)$team1);
             }else{
-               $this->session->set_flashdata('message_name', 'Could not register agent. Try again later.');
+               $this->session->set_flashdata('message_name', 'Agent Error: ' . (String)$team->message[0] . '!');
             }
             redirect('/play');
         }
@@ -68,8 +67,19 @@
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 
             $response = curl_exec( $ch );
-            var_dump($response);
-            $this->session->set_flashdata('message_name', 'Stock has been purchased');
+            
+            try{
+                $x = new SimpleXMLElement($response);
+            }catch (Exception $e) { 
+                $this->session->set_flashdata('message_name', 'Error! The xml returned for buy is null. Sever is broken again');
+                redirect('/play');   
+            }
+            $message = new SimpleXMLElement($response);
+            if((String)$message->message[0] == ""){
+                $this->session->set_flashdata('message_name', 'Stock has been purchased');
+            }else{
+                $this->session->set_flashdata('message_name', 'Error Buying Stock: ' . (String)$message->message[0]);
+            }
             redirect('/play');
         }
         
