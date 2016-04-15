@@ -35,7 +35,7 @@ class Welcome extends Application
         $this->data['stock_list'] = $arr;
         
         $this->data['recent_moves'] = $this->Moves->getData("http://www.comp4711bsx.local/data/movement/5");
-        $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");        
+        $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
         
         $this->render();
     }
@@ -48,7 +48,7 @@ class Welcome extends Application
     /* sorts stocks by value, if the same value, stocks are sorted by code */
     function cmp($a, $b)
     {
-        return $b['value'] == $a['value'] ? strnatcasecmp($b['code'], $a['code']) : $b['value'] - $a['value'];
+        return $b['value'] == $a['value'] ? strnatcasecmp($a['code'], $b['code']) : $b['value'] - $a['value'];
     }
     
     function getGameStatus($url)

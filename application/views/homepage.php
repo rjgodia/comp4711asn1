@@ -22,7 +22,6 @@
     <div class="span7">
         <h4><u>Player Standings</u></h4>
     </div>
-
     <div class="span2">
         <table class="table table-hover">
             <thead>
@@ -31,7 +30,7 @@
             </thead>
             {stock_list}
             <tr id="cs_{code}">
-                <td><a href="/history/{Code}">{code}</a></td>
+                <td><a href="/history/{code}">{code}</a></td>
                 <td>{value}</td>
             </tr>
             {/stock_list}
@@ -55,7 +54,6 @@
             {/recent_moves}
         </table>
     </div>
-    
     
     <div class="span7">
         <table class="table table-hover">
