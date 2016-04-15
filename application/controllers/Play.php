@@ -86,28 +86,29 @@
                     redirect('/play');   
                 }
                 $message = new SimpleXMLElement($response);
+                
+                // if successful transaction
                 if((String)$message->message[0] == "")
                 {
-                // update player cash
-                $this->updatePlayerCash($stock, $quantity);
-                // add stock to holdings
-                // add to transactions
+                    // update player cash
+                    $this->updatePlayerCash($stock, $quantity);
+                    // add stock to holdings
+                    // add to transactions
 
-                $this->session->set_flashdata('message_name', 'Stock has been purchased');
-                }else{
+                    $this->session->set_flashdata('message_name', 'Stock has been purchased');
+                }
+                else // failed transaction
+                {
                     $this->session->set_flashdata('message_name', 'Error Buying Stock: ' . (String)$message->message[0]);
                 }
                 redirect('/play');
             }
         }
         
-        
         function checkSufficientCash($stock, $quantity)
         {
             $currentUser = $this->Users->get($this->session->userdata('usr'));
             $currentCash = $currentUser->cash;
-            
-//            $stocks = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $exepectedPurchase = $this->getTotalPurchase($stock, $quantity);
             
             if($exepectedPurchase <= $currentCash)
@@ -145,8 +146,6 @@
             $this->db->where('username',$player);
             $this->db->update('users',$data);
         }
-        
-        
         
         
         function sell(){
