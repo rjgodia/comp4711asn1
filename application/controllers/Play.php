@@ -16,7 +16,7 @@
             
             $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['stock_list'] = $arr;
-            echo $this->session->flashdata('message_name');
+            $this->data['message'] = $this->session->flashdata('message_name');
             $this->render();
         }
         

@@ -1,5 +1,4 @@
-</br></br>
-
+<h4 style="color:red;">{message}</h4>
 <form action="/login/verify"  method="post" accept-charset="utf-8">	
 	<div class="control-group">
 		<div class="input-prepend">
