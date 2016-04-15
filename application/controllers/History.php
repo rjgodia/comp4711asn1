@@ -18,7 +18,9 @@ class History extends Application
             $stock = $this->Moves->getData("http://bsx.jlparry.com/data/movement/1");
 
             $this->data['title'] = "Recent History";
-            $this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
+
+            $this->data['stocktype'] = $this->Moves->getData("http://comp4711bsx.local/data/movement/5");
+            //$this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
             $this->render();
     }
     
