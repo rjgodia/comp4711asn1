@@ -68,7 +68,7 @@
             {player_list}
             <tr id="{username}">
                 <td><img src="/uploads/{avatar}" width="25px" height="25px"/></td>
-                <td>{username}</td>
+                <td><a href="/profile/{username}">{username}</a></td>
                 <td id="{username}_net">{net}</td>
                 <td>{cash}</td>
                 <td>{equity}</td>

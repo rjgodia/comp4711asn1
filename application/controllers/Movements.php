@@ -21,6 +21,7 @@ class Movements extends Application
     
     function index()
     {
+        $this->Players->resetAll();
         $this->data['pagebody'] = 'movements'; // view
         $this->data['movelist'] = $this->Moves->all(); // model
         $this->render();

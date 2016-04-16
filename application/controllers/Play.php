@@ -13,7 +13,7 @@
         function index()
         {
             $this->data['pagebody'] = 'play';
-            
+            $this->Players->resetAll();
             $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
             $this->data['stock_list'] = $arr;
             $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
