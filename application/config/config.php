@@ -5,8 +5,9 @@ $config['menu_choices'] = array(
 	'menudata' => array(
 		array('name' => 'Home', 'link' => '/'),
 		array('name' => 'Play', 'link' => '/play'),
-                array('name' => 'Stock History', 'link' => '/history'),
+		array('name' => 'Stock History', 'link' => '/history'),
 		array('name' => 'Portfolio', 'link' => '/profile'),
+		array('name' => 'Manage Agents', 'link' => '/agentmanagement'),
 		array('name' => 'About', 'link' => '/about'),
 	)
 );

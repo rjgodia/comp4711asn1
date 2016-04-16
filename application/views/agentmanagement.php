@@ -6,7 +6,7 @@
         </a>
         <ul class="dropdown-menu">
             {players}
-            <li><a href="/profile/{username}">{username}</a></li>
+            <li><a href="/agentmanagement/{username}">{username}</a></li>
             {/players}
         </ul>
 
