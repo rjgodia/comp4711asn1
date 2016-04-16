@@ -92,6 +92,8 @@
                 {
                     // update player cash
                     $this->updatePlayerCash($stock, $quantity);
+                    //get buy token
+                    $buyToken = $message->token[0];
                     // add stock to holdings
                     // add to transactions
 
