@@ -78,7 +78,8 @@
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
 
                 $response = curl_exec( $ch );
-
+                
+                //the try catch is just to make sure the xml that is returned isnt null or broken
                 try{
                     $x = new SimpleXMLElement($response);
                 }catch (Exception $e) { 
@@ -153,7 +154,46 @@
         
         
         function sell(){
-            redirect('/play');
+            
+            $team = $this->session->userdata('teamCode');
+            $token = $this->session->userdata('token');
+            $player = $this->session->userdata('usr');
+            $stock = $this->input->post('stock');
+            $quantity = $this->input->post('quantity');
+            $certificate = 'c2bea';
+
+            
+            $url = 'http://bsx.jlparry.com/sell';
+            $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
+                    . $player . '&stock=' . $stock . '&quantity=' . $quantity . '&certificate=' . $certificate;
+
+                $ch = curl_init( $url );
+                curl_setopt( $ch, CURLOPT_POST, 1);
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+                curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt( $ch, CURLOPT_HEADER, 0);
+                curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+
+                $response = curl_exec( $ch );
+             
+             
+                $message = new SimpleXMLElement($response);
+                
+                if((String)$message->message[0] == "")
+                {
+                    $this->session->set_flashdata('message_name', 'Stock has been sold');
+                }
+                else // failed transaction
+                {
+                    $this->session->set_flashdata('message_name', 'Error selling Stock: ' . (String)$message->message[0]);
+                }
+                //$xml=simplexml_load_string($response);
+                //echo header('Content-Type: application/xml');
+                //echo  $xml;
+                //var_dump($response);
+                //echo 'Quant: ' . $quantity;
+                //echo ' Stock: ' . $stock;
+                //redirect('/play');
         }
         function getGameStatus($url)
         {
