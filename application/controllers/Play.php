@@ -219,9 +219,6 @@
                         $this->db->where('user', $player);
                         $this->db->where('stock', $stock);
                         $query = $this->db->delete('holdings');
-                        //re add them
-                        $buyToken = $message->token[0];
-                        $this->addToHoldings($stock, $buyToken, $quantity);
                         //update transactions
                         $this->addToTransactions('Sell', $stock, $quantity);
                         //done
