@@ -16,7 +16,7 @@ class Trans extends MY_Model
     //put your code here
     function __construct()
     {
-        parent::__construct('transactions', 'DateTime');
+        parent::__construct('transactions', 'user');
     }
     
     function recent()

@@ -69,9 +69,9 @@
             <tr id="{username}">
                 <td><img src="/uploads/{avatar}" width="25px" height="25px"/></td>
                 <td>{username}</td>
-                <td> - </td>
-                <td> - </td>
-                <td> {cash} </td>
+                <td>{equity}</td>
+                <td>{net}</td>
+                <td>{cash}</td>
                 <td> * </td>
             </tr>
             {/player_list}

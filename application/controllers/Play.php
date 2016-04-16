@@ -192,7 +192,8 @@
             $this->db->insert('holdings',$data);            
         }
         
-        function addToTransactions($action, $stock, $quantity){
+        function addToTransactions($action, $stock, $quantity)
+        {
             $player = $this->session->userdata('usr');
             $data = array(
                 "user" => $player,
@@ -201,6 +202,7 @@
                 "quantity" => $quantity
             );
             $this->db->insert('transactions',$data);
-        }     
+        }
+        
     }
 ?>
