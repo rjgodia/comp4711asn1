@@ -60,26 +60,26 @@
              <thead>
                 <th style="width: 10%"></th>
                 <th style="width: 18%">Player</th>
-                <th style="width: 18%">Equity</th>
                 <th style="width: 18%">Net Worth</th>
                 <th style="width: 18%">Cash</th>
+                <th style="width: 18%">Equity</th>
                 <th style="width: 18%"></th>
             </thead>
             {player_list}
             <tr id="{username}">
                 <td><img src="/uploads/{avatar}" width="25px" height="25px"/></td>
                 <td>{username}</td>
-                <td>{equity}</td>
-                <td>{net}</td>
+                <td id="{username}_net">{net}</td>
                 <td>{cash}</td>
-                <td> * </td>
+                <td>{equity}</td>
+                <td id="{username}_pic"></td>
             </tr>
             {/player_list}
         </table>
         
         <table class="table">
             <tr>
-                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/> Highest Net Worth 
+                <td><img src="/assets/images/top_player.png" width="25px" height="25px"/> Highest Net Worth
                 <img src="/assets/images/top_cash.png" width="25px" height="25px"/> Highest Cash Worth</td>
             </tr>
         </table>
@@ -88,8 +88,13 @@
 
 <script>
     var stocks =[];
+    var players = [];
+    var pcash = [];
     
     {stock_list}stocks.push('cs_{code}');{/stock_list}
+    {player_list}players.push({net});{/player_list}
+    {player_list}pcash.push({cash});{/player_list}
+        
     function colorCodeStocks(id)
     {
         var row = document.getElementById(id);
@@ -97,6 +102,32 @@
         {
             row.style = "font-weight: bold";
             row.className = "info";
+        }
+    }
+    
+    function colorCodePlayers(id, net, cash)
+    {
+        var row = document.getElementById(id);
+        var pnet = document.getElementById(id+'_net');
+        var pic = document.getElementById(id+'_pic');
+        
+        /* negative net worth */
+        if(net <= 0) pnet.style = "color: red";
+        
+        /* player with highest cash value */
+        if(Math.max.apply(Math, pcash) === cash)
+        {
+            row.className = "warning";
+            row.style = "font-weight: bold";
+            pic.innerHTML = '<img src="/assets/images/top_cash.png" width="25px" height="25px"/>';
+        }
+        
+        if(players[0] === net)
+        {
+            row.className = "success";
+            row.style = "font-weight: bold";
+            pic.style = "text-style: left";
+            pic.innerHTML = '<img src="/assets/images/top_player.png" width="25px" height="25px"/>';
         }
     }
     
@@ -150,6 +181,11 @@
     }
     
     updateStatus("status");
+    
+    
+    {player_list}
+        colorCodePlayers('{username}', {net}, {cash});
+    {/player_list}
     
     {recent_moves}
         colorCodeRecentMoves('{seq}_{action}', '{seq}_{action}_img');
