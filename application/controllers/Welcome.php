@@ -75,4 +75,5 @@ class Welcome extends Application
         
         return array($gameStatus);
     }
+    
 }

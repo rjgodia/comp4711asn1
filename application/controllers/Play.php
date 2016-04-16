@@ -95,6 +95,7 @@
                     //get buy token
                     $buyToken = $message->token[0];
                     // add stock to holdings
+                    $this->addToHoldings($stock, $buyToken, $quantity);
                     // add to transactions
 
                     $this->session->set_flashdata('message_name', 'Stock has been purchased');
@@ -178,6 +179,17 @@
             return array($gameStatus);
         }
         
+        function addToHoldings($stock, $token, $quantity)
+        {
+            $player = $this->session->userdata('usr');
+            $data = array(
+                "user" => $player,
+                "stock" => $stock,
+                "token" => $token,
+                "quantity" => $quantity
+            );
+            $this->db->insert('holdings',$data);            
+        }
         
     }
 ?>
