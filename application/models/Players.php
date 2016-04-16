@@ -45,7 +45,7 @@ class Players extends MY_Model
     public function resetPlayerCash()
     {
         $players = $this->all();
-        $data = array("cash"=>5000);
+        $data = array("cash"=>5000, "equity" => 0);
         foreach($players as $p)
         {
             $this->db->where('username', $p->username);
