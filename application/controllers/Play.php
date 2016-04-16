@@ -160,16 +160,25 @@
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
             $quantity = $this->input->post('quantity');
-            $certificate = 'c2bea';
+            $certificate = array();
+			array_push($certificate, '9fed1');
 
             
             $url = 'http://bsx.jlparry.com/sell';
-            $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
-                    . $player . '&stock=' . $stock . '&quantity=' . $quantity . '&certificate=' . $certificate;
+			
+			$post = array('team'=>$team,
+                'token'=>$token,
+                'player'=>$player,
+				'stock'=>$stock,
+				'quantity'=>$quantity,
+				'certificate'=>$certificate
+                );
+            //$myvars = 'team=' . $team . '&token=' . $token . '&player=' 
+              //      . $player . '&stock=' . $stock . '&quantity=' . $quantity . '&certificate=' . $certificate;
 
                 $ch = curl_init( $url );
                 curl_setopt( $ch, CURLOPT_POST, 1);
-                curl_setopt( $ch, CURLOPT_POSTFIELDS, $myvars);
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query($post));
                 curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
                 curl_setopt( $ch, CURLOPT_HEADER, 0);
                 curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
@@ -189,8 +198,8 @@
                 }
                 //$xml=simplexml_load_string($response);
                 //echo header('Content-Type: application/xml');
-                //echo  $xml;
-                //var_dump($response);
+                echo  $token;
+                var_dump($response);
                 //echo 'Quant: ' . $quantity;
                 //echo ' Stock: ' . $stock;
                 //redirect('/play');
