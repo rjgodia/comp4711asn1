@@ -21,6 +21,7 @@ class Transaction extends Application
     
     function index()
     {
+        $this->Players->resetAll();
         $this->data['pagebody'] = 'transaction'; //view
         $this->data['translist'] = $this->Trans->all(); // model
         $this->render();

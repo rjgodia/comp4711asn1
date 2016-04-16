@@ -17,6 +17,7 @@ class AgentManagement extends Application{
 
     function index()
     {
+        $this->Players->resetAll();
         $this->data['pagebody'] = 'agentmanagement';
         $this->render();
     }

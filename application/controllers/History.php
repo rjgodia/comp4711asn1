@@ -12,6 +12,7 @@ class History extends Application
 
     public function index()
     {
+            $this->Players->resetAll();
             $this->data['pagebody'] = 'history';
             $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
 

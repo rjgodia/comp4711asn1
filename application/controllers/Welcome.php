@@ -16,6 +16,7 @@ class Welcome extends Application
     {
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
+//        $this->Players->resetAll();
         
 //        $this->getEquity();
 //        $this->getNet();
@@ -27,6 +28,8 @@ class Welcome extends Application
 
 //        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
 //        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
+        
+        $this->Players->resetAll();
         
         $this->getEquity();
         $this->getNet();
