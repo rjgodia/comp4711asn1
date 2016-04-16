@@ -97,6 +97,7 @@
                     // add stock to holdings
                     $this->addToHoldings($stock, $buyToken, $quantity);
                     // add to transactions
+                    $this->addToTransactions('Buy', $stock, $quantity);
 
                     $this->session->set_flashdata('message_name', 'Stock has been purchased');
                 }
@@ -191,5 +192,15 @@
             $this->db->insert('holdings',$data);            
         }
         
+        function addToTransactions($action, $stock, $quantity){
+            $player = $this->session->userdata('usr');
+            $data = array(
+                "user" => $player,
+                "action" => $action,
+                "stock" => $stock,
+                "quantity" => $quantity
+            );
+            $this->db->insert('transactions',$data);
+        }     
     }
 ?>
