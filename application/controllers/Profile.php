@@ -32,9 +32,10 @@ class Profile extends Application {
         $currPlayer = $this->session->userdata('usr');
 
 		$this->data['pagebody'] = 'profile';
-		$this->data['stocks'] = $this->Stocks->all();
+		//$this->data['stocks'] = $this->Stocks->all();
 		$this->data['players'] = $this->Players->all();
-		$this->data['movelist'] = $this->Moves->all();
+        $this->data['translist'] = $this->Trans->all();
+		/*$this->data['movelist'] = $this->Moves->all();
 		$this->data['translist'] = $this->Trans->all();
         $players = $this->Players->getCol();
         $recentStockTrans = $this->Trans->getCol();
@@ -50,7 +51,7 @@ class Profile extends Application {
         }
 
         $this->data['playerlist'] = $this->Players->some("Player", $players);
-
+        */
 		$this->render();
 	}
 
@@ -58,8 +59,8 @@ class Profile extends Application {
 		$this->data['pagebody'] = 'profile';
 		$this->data['title'] = $player . "'s Portfolio";
 
-		$this->data['translist'] = $this->Trans->some("Player", $player);
-        $this->data['playerlist'] = $this->Players->some("Player", $player);
+		$this->data['translist'] = $this->Trans->some("user", $player);
+        $this->data['playerlist'] = $this->Players->all();
 		$this->data['players'] = $this->Players->all();
 		$this->data['movelist'] = $this->Moves->all();
 

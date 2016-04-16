@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2016 at 08:39 AM
+-- Generation Time: Apr 16, 2016 at 04:18 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `stockticker`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `holdings`
+--
+
+CREATE TABLE `holdings` (
+  `user` varchar(200) DEFAULT NULL,
+  `stock` varchar(200) DEFAULT NULL,
+  `token` varchar(400) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `holdings`
+--
+
+INSERT INTO `holdings` (`user`, `stock`, `token`, `quantity`) VALUES
+('rj', 'APPL', '28fa6', 1),
+('rj', 'APPL', '422fd', 1),
+('rj', 'BOND', '8012a', 1),
+('rj', 'COFF', 'cbd83', 4);
 
 -- --------------------------------------------------------
 
@@ -87,9 +110,9 @@ CREATE TABLE `players` (
 
 INSERT INTO `players` (`Player`, `Cash`, `Equity`, `Net`) VALUES
 ('Mickey', 1000, 0, 1000),
-('Donald', 3000, 95200, -92200),
-('George', 2000, 46100, -44100),
-('Henry', 2500, 158000, -155500);
+('Donald', 3000, 95200, 98200),
+('George', 2000, 46100, 48100),
+('Henry', 2500, 158000, 160500);
 
 -- --------------------------------------------------------
 
@@ -123,31 +146,46 @@ INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
 --
 
 CREATE TABLE `transactions` (
-  `DateTime` varchar(19) DEFAULT NULL,
-  `Player` varchar(6) DEFAULT NULL,
-  `Stock` varchar(4) DEFAULT NULL,
-  `Trans` varchar(4) DEFAULT NULL,
-  `Quantity` int(4) DEFAULT NULL
+  `user` varchar(400) NOT NULL,
+  `action` varchar(50) NOT NULL,
+  `stock` varchar(60) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`DateTime`, `Player`, `Stock`, `Trans`, `Quantity`) VALUES
-('2016.02.01-09:01:00', 'Donald', 'BOND', 'buy', 100),
-('2016.02.01-09:01:05', 'Donald', 'TECH', 'sell', 1000),
-('2016.02.01-09:01:10', 'Henry', 'TECH', 'sell', 1000),
-('2016.02.01-09:01:15', 'Donald', 'IND', 'sell', 1000),
-('2016.02.01-09:01:20', 'George', 'GOLD', 'sell', 100),
-('2016.02.01-09:01:25', 'George', 'OIL', 'buy', 500),
-('2016.02.01-09:01:30', 'Henry', 'GOLD', 'sell', 100),
-('2016.02.01-09:01:35', 'Henry', 'GOLD', 'buy', 1000),
-('2016.02.01-09:01:40', 'Donald', 'TECH', 'buy', 100),
-('2016.02.01-09:01:45', 'Donald', 'OIL', 'sell', 100),
-('2016.02.01-09:01:50', 'Donald', 'TECH', 'sell', 100),
-('2016.02.01-09:01:55', 'George', 'OIL', 'buy', 100),
-('2016.02.01-09:01:60', 'George', 'IND', 'buy', 100);
+INSERT INTO `transactions` (`user`, `action`, `stock`, `quantity`) VALUES
+('rj', 'Buy', 'BOND', 1),
+('rj', 'Buy', 'COFF', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `username` varchar(229) NOT NULL,
+  `password` varchar(299) NOT NULL,
+  `avatar` varchar(299) DEFAULT NULL,
+  `role` varchar(299) DEFAULT NULL,
+  `cash` decimal(10,0) NOT NULL DEFAULT '5000',
+  `equity` decimal(10,0) NOT NULL DEFAULT '0',
+  `net` decimal(10,0) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`username`, `password`, `avatar`, `role`, `cash`, `equity`, `net`) VALUES
+('rj', '$2y$10$TcJwOXGijXGudRtFLDGDo.tUSDtS.FZiY7iRTVVBjWNU9SkZn/TXO', '1460622752.png', 'user', '4395', '80', '4475'),
+('danny', '$2y$10$zIKDo69q1mVE.2yWj.QhHuUGX0jrzrfMHxZMRprcUC.s7c7F35Vj2', '1460623810.png', 'user', '5000', '0', '5000'),
+('daniel', '$2y$10$jhyT4E.jwtk7Gz7beG2/6eQi9aVuLS9HXcSxD6I5D3IjotZkawQBe', '1460623841.png', 'user', '5000', '0', '5000'),
+('nico', '$2y$10$gOpIox3cyYuifOVflxgro.bJp/9lblJQHcYWbF5hiLETyyH8/P5Mq', '1460623956.png', 'user', '5000', '0', '5000'),
+('unknown', '$2y$10$uv1NkXyAQl0pC6dOGaEhUue80EN6jGto0gXkFLIN1boZsjiYWY242', 'default.jpg', 'user', '5000', '0', '5000');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

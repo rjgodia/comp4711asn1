@@ -13,14 +13,21 @@ class History extends Application
     public function index()
     {
             $this->data['pagebody'] = 'history';
-            $this->data['stocks'] = $this->Stocks->all();
-            $this->data['movelist'] = $this->Moves->all();
-            $this->data['translist'] = $this->Trans->all();
+            $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
+
+            $stock = $this->Moves->getData("http://bsx.jlparry.com/data/movement/1");
+
             $this->data['title'] = "Recent History";
-            $recentStockMove = $this->Moves->getCol();
-            $recentStockTrans = $this->Trans->getCol();
-            $this->data['stocktype'] = $this->Moves->some("Code", $recentStockMove);
-            $this->data['translist'] = $this->Trans->some("Stock", $recentStockTrans);
+         
+
+            //$this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
+
+            $this->data['stocktype'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/10");
+            $this->data['translist'] = $this->Trans->all();
+
+            //$this->data['stocktype'] = $this->Moves->getData("http://comp4711bsx.local/data/movement/5");
+
+            //$this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
             $this->render();
     }
     
@@ -28,9 +35,9 @@ class History extends Application
     {
         $this->data['pagebody'] = 'history';
         $this->data['title'] = $stock . " History";
-        $this->data['stocktype'] = $this->Moves->some("Code", $stock);
-        $this->data['translist'] = $this->Trans->some("Stock", $stock);
-        $this->data['stocks'] = $this->Stocks->all();
+        $this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock);
+        $this->data['translist'] = $this->Trans->some("stock", $stock);
+        $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
         $this->data['movelist'] = $this->Moves->all();
         
         $this->render();

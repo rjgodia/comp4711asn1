@@ -30,21 +30,30 @@ class Login extends Application {
 	{
 		$this->data['pagebody'] = 'login';	// this is the view we want shown
 		$this->data['title'] = "Login";
-		
+                $this->data['message'] = $this->session->flashdata('message_name');
 		$this->render();
 	}
 	
 	function logout()
 	{
-		$this->session->unset_userdata('usr');
-        redirect('/');
+		$this->session->sess_destroy();
+                redirect('/');
 	}
 	
 	function verify(){
-		
-        if ($this->input->post('username') !== null) {
-            $this->session->set_userdata('usr', $this->input->post('username'));
+            $key = $_POST['username'];
+            $user = $this->Users->get($key);
+            if (password_verify($this->input->post('password'),$user->password))
+            {
+                //echo $key;
+                $this->session->set_userdata('usr',$key);
+                $this->session->set_userdata('userRole',$user->role);
+            }else{
+                $this->session->set_flashdata('message_name', 'Wrong login');
+                redirect('/login');
+            }
+               
+            
             redirect('/');
-        }
     }
 }
