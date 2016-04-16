@@ -169,7 +169,6 @@
 			foreach($query->result() as $row) {
 				array_push($certificate, $row->token);
 			}
-			//array_push($certificate, '9fed1');
 			
             $url = 'http://bsx.jlparry.com/sell';
 			
@@ -180,9 +179,7 @@
 				'quantity'=>$quantity,
 				'certificate'=>$certificate
                 );
-            //$myvars = 'team=' . $team . '&token=' . $token . '&player=' 
-              //      . $player . '&stock=' . $stock . '&quantity=' . $quantity . '&certificate=' . $certificate;
-
+                        
                 $ch = curl_init( $url );
                 curl_setopt( $ch, CURLOPT_POST, 1);
                 curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query($post));
@@ -194,22 +191,65 @@
              
              
                 $message = new SimpleXMLElement($response);
-                
+                $test = substr((String)$message->message[0],0, 10);
+                //stock sold and there is still stock left
                 if((String)$message->message[0] == "")
                 {
+                    //add the amount to local db
+                    $this->addPlayerCash($stock, $quantity);
+                    //delete the certificates from the db
+                    $this->db->where('user', $player);
+                    $this->db->where('stock', $stock);
+                    $query = $this->db->delete('holdings');
+                    //re add them
+                    $buyToken = $message->token[0];
+                    $this->addToHoldings($stock, $buyToken, $quantity);
+                    //update transactions
+                    $this->addToTransactions('Sell', $stock, $quantity);
+                    //done
                     $this->session->set_flashdata('message_name', 'Stock has been sold');
                 }
-                else // failed transaction
+                else 
                 {
-                    $this->session->set_flashdata('message_name', 'Error selling Stock: ' . (String)$message->message[0]);
+                    //stock sold with exact amount
+                    if($test == 'Stock sold'){
+                     //add the amount to local db
+                        $this->addPlayerCash($stock, $quantity);
+                        //delete the certificates from the db
+                        $this->db->where('user', $player);
+                        $this->db->where('stock', $stock);
+                        $query = $this->db->delete('holdings');
+                        //re add them
+                        $buyToken = $message->token[0];
+                        $this->addToHoldings($stock, $buyToken, $quantity);
+                        //update transactions
+                        $this->addToTransactions('Sell', $stock, $quantity);
+                        //done
+                        $this->session->set_flashdata('message_name', 'Stock has been sold!');
+                     //there is a problem   
+                    }else{
+                        $this->session->set_flashdata('message_name', 'Error selling Stock: ' . (String)$message->message[0]);
+                    }
+                    
                 }
-                //$xml=simplexml_load_string($response);
-                //echo header('Content-Type: application/xml');
-                var_dump($certificate);
-                var_dump($response);
-                //echo 'Quant: ' . $quantity;
-                //echo ' Stock: ' . $stock;
-                //redirect('/play');
+
+                redirect('/play');
+        }
+        
+        function addPlayerCash($stock, $quantity)
+        {
+            $player = $this->session->userdata('usr');
+            $currentUser = $this->Users->get($this->session->userdata('usr'));
+            $currentCash = $currentUser->cash;
+            
+            $newTotal = $currentCash + $this->getTotalPurchase($stock, $quantity);
+            
+            $data = array(
+                "cash"=> $newTotal
+            );
+           
+            $this->db->where('username',$player);
+            $this->db->update('users',$data);
         }
         function getGameStatus($url)
         {
