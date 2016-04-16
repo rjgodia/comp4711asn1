@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2016 at 12:21 AM
+-- Generation Time: Apr 16, 2016 at 04:18 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -32,6 +32,16 @@ CREATE TABLE `holdings` (
   `token` varchar(400) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `holdings`
+--
+
+INSERT INTO `holdings` (`user`, `stock`, `token`, `quantity`) VALUES
+('rj', 'APPL', '28fa6', 1),
+('rj', 'APPL', '422fd', 1),
+('rj', 'BOND', '8012a', 1),
+('rj', 'COFF', 'cbd83', 4);
 
 -- --------------------------------------------------------
 
@@ -138,27 +148,17 @@ INSERT INTO `stocks` (`Code`, `Name`, `Category`, `Value`) VALUES
 CREATE TABLE `transactions` (
   `user` varchar(400) NOT NULL,
   `action` varchar(50) NOT NULL,
-  `stock` varchar(60) NOT NULL
+  `stock` varchar(60) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`user`, `action`, `stock`) VALUES
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', ''),
-('', '', '');
+INSERT INTO `transactions` (`user`, `action`, `stock`, `quantity`) VALUES
+('rj', 'Buy', 'BOND', 1),
+('rj', 'Buy', 'COFF', 4);
 
 -- --------------------------------------------------------
 
@@ -171,19 +171,21 @@ CREATE TABLE `users` (
   `password` varchar(299) NOT NULL,
   `avatar` varchar(299) DEFAULT NULL,
   `role` varchar(299) DEFAULT NULL,
-  `cash` decimal(10,0) NOT NULL DEFAULT '5000'
+  `cash` decimal(10,0) NOT NULL DEFAULT '5000',
+  `equity` decimal(10,0) NOT NULL DEFAULT '0',
+  `net` decimal(10,0) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `avatar`, `role`, `cash`) VALUES
-('rj', '$2y$10$TcJwOXGijXGudRtFLDGDo.tUSDtS.FZiY7iRTVVBjWNU9SkZn/TXO', '1460622752.png', 'user', '5000'),
-('danny', '$2y$10$zIKDo69q1mVE.2yWj.QhHuUGX0jrzrfMHxZMRprcUC.s7c7F35Vj2', '1460623810.png', 'user', '5000'),
-('daniel', '$2y$10$jhyT4E.jwtk7Gz7beG2/6eQi9aVuLS9HXcSxD6I5D3IjotZkawQBe', '1460623841.png', 'user', '5000'),
-('nico', '$2y$10$gOpIox3cyYuifOVflxgro.bJp/9lblJQHcYWbF5hiLETyyH8/P5Mq', '1460623956.png', 'user', '5000'),
-('unknown', '$2y$10$uv1NkXyAQl0pC6dOGaEhUue80EN6jGto0gXkFLIN1boZsjiYWY242', 'default.jpg', 'user', '5000');
+INSERT INTO `users` (`username`, `password`, `avatar`, `role`, `cash`, `equity`, `net`) VALUES
+('rj', '$2y$10$TcJwOXGijXGudRtFLDGDo.tUSDtS.FZiY7iRTVVBjWNU9SkZn/TXO', '1460622752.png', 'user', '4395', '80', '4475'),
+('danny', '$2y$10$zIKDo69q1mVE.2yWj.QhHuUGX0jrzrfMHxZMRprcUC.s7c7F35Vj2', '1460623810.png', 'user', '5000', '0', '5000'),
+('daniel', '$2y$10$jhyT4E.jwtk7Gz7beG2/6eQi9aVuLS9HXcSxD6I5D3IjotZkawQBe', '1460623841.png', 'user', '5000', '0', '5000'),
+('nico', '$2y$10$gOpIox3cyYuifOVflxgro.bJp/9lblJQHcYWbF5hiLETyyH8/P5Mq', '1460623956.png', 'user', '5000', '0', '5000'),
+('unknown', '$2y$10$uv1NkXyAQl0pC6dOGaEhUue80EN6jGto0gXkFLIN1boZsjiYWY242', 'default.jpg', 'user', '5000', '0', '5000');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
