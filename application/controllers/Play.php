@@ -14,9 +14,11 @@
         {
             $this->data['pagebody'] = 'play';
             $this->Players->resetAll();
-            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+//            $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+            $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
             $this->data['stock_list'] = $arr;
-            $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
+            $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
+//            $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com//status");
             $this->data['message'] = $this->session->flashdata('message_name');
             $this->render();
         }
@@ -25,7 +27,8 @@
             $test1 = 'g03';
             $test2 = 'xD';
             $test3 = 'tuesday';
-            $url = 'http://bsx.jlparry.com/register';
+//            $url = 'http://bsx.jlparry.com/register';
+            $url = 'http://www.comp4711bsx.local/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
             $ch = curl_init( $url );
@@ -56,7 +59,8 @@
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
             $quantity = $this->input->post('quantity');
-            $url = 'http://bsx.jlparry.com/buy';
+//            $url = 'http://bsx.jlparry.com/buy';
+            $url = 'http://www.comp4711bsx.local/buy';
             $myvars = 'team=' . $team . '&token=' . $token . '&player=' 
                     . $player . '&stock=' . $stock . '&quantity=' . $quantity;
 
@@ -123,7 +127,8 @@
         
         function getTotalPurchase($stock, $quantity)
         {
-            $stocks = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+//            $stocks = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+            $stocks = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
             $expectedPurchase = 0;
             foreach($stocks as $s)
             {
@@ -171,7 +176,8 @@
 			}
 			//array_push($certificate, '9fed1');
 			
-            $url = 'http://bsx.jlparry.com/sell';
+//            $url = 'http://bsx.jlparry.com/sell';
+            $url = 'http://www.comp4711bsx.local/sell';
 			
 			$post = array('team'=>$team,
                 'token'=>$token,

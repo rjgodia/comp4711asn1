@@ -19,9 +19,10 @@ class Players extends MY_Model
         parent::__construct('users', 'cash');
     }
     
-    function gameState()
+    function gameState($value)
     {
-        $url = "http://bsx.jlparry.com/status";
+//        $url = "http://bsx.jlparry.com/status";
+        $url = "http://www.comp4711bsx.local/status";
         $ch = curl_init($url);
         curl_setopt( $ch, CURLOPT_POST, 1);
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -29,16 +30,23 @@ class Players extends MY_Model
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec( $ch );
         $res = new SimpleXMLElement($response);
-        return $res->state;
+        curl_close($ch);
+        return $res->$value;
     }
     
     public function resetAll()
     {
-        if($this->gameState() == 4 || $this->gameState() == 0)
+        $prev = $this->getLastRoundStored();
+        $curr = $this->gameState('round');
+        if($this->gameState('state') != 3)
         {
-            $this->db->empty_table('transactions');
-            $this->db->empty_table('holdings');
-            $this->resetPlayerCash();
+            if($prev != $curr)
+            {
+                $this->db->empty_table('transactions');
+                $this->db->empty_table('holdings');
+                $this->updateRound($curr);
+                $this->resetPlayerCash();
+            }
         }
     }
     
@@ -53,59 +61,15 @@ class Players extends MY_Model
         }
     }
     
-//    function getEquity()
-//    {        
-//        $players = $this->Trans->all();
-//        $stocks = $this->Stocks->all();
-//        
-//        foreach($players as $p)
-//        {
-//            $equity = 0;
-//            foreach($stocks as $s)
-//            {
-//                $equity += $s->Value * ($this->getTotalTrans($p->Player, $s->Code));
-//            }
-//            $this->UpdateEquity('Players', $equity, $p->Player);
-//        }
-//    }
-//    
-//    function getNet()
-//    {
-//        $players = $this->Players->all();
-//        
-//        foreach($players as $p)
-//        {
-//            $this->UpdateNetWorth('Players', $p->Player, $p->Equity, $p->Cash);
-//        }
-//    }
-//    
-//    function UpdateEquity($table, $equity, $player)
-//    {
-//        $data = array('Equity'=>$equity);
-//        $this->db->where('Player', $player);
-//        $this->db->update($table, $data);
-//    }
-//    
-//    function UpdateNetWorth($table, $player, $equity, $cash)
-//    {
-//        $data = array ('Net'=>( $cash + $equity ));
-//        $this->db->where('Player', $player);
-//        $this->db->update($table, $data);
-//    }
-//    
-//    function getTotalTrans($player, $stock)
-//    {
-//        $this->db->select('SUM(Quantity) AS TotalTrans');
-//        $this->db->where('player', $player);
-//        $this->db->where('stock', $stock);
-//        return $this->db->get('transactions')->result()[0]->TotalTrans;
-//    }
-//    
-//    function getCol()
-//    {
-//        foreach ($this->Trans->recent() as $row)
-//        {
-//            return $row->Stock;
-//        }
-//    }
+    public function updateRound($round)
+    {
+        $data = array("round" => $round);
+        $this->db->where('name', 'stockticker');
+        $this->db->update('gamestate', $data);
+    }
+    
+    public function getLastRoundStored()
+    {
+        return $this->db->get('gamestate')->row()->round;
+    }
 }
