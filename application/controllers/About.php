@@ -15,5 +15,5 @@ class About extends Application
         $this->data['pagebody'] = 'about';
         $this->render();
     }
-}
+} 
 ?>

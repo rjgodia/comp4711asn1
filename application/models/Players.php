@@ -13,6 +13,7 @@
  */
 class Players extends MY_Model
 {
+    
     function __construct()
     {
         parent::__construct('users', 'cash');
@@ -20,7 +21,7 @@ class Players extends MY_Model
     
     function gameState()
     {
-        $url = "http://www.comp4711bsx.local/status";
+        $url = "http://bsx.jlparry.com/status";
         $ch = curl_init($url);
         curl_setopt( $ch, CURLOPT_POST, 1);
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -44,7 +45,7 @@ class Players extends MY_Model
     public function resetPlayerCash()
     {
         $players = $this->all();
-        $data = array("cash"=>5000, "equity"=>0);
+        $data = array("cash"=>5000, "equity" => 0);
         foreach($players as $p)
         {
             $this->db->where('username', $p->username);
