@@ -160,10 +160,17 @@
             $player = $this->session->userdata('usr');
             $stock = $this->input->post('stock');
             $quantity = $this->input->post('quantity');
-            $certificate = array();
-			array_push($certificate, '9fed1');
-
             
+			$this->db->where('user', $player);
+			$this->db->where('stock', $stock);
+			$query = $this->db->get('holdings');
+			 
+			$certificate = array();
+			foreach($query->result() as $row) {
+				array_push($certificate, $row->token);
+			}
+			//array_push($certificate, '9fed1');
+			
             $url = 'http://bsx.jlparry.com/sell';
 			
 			$post = array('team'=>$team,
@@ -198,7 +205,7 @@
                 }
                 //$xml=simplexml_load_string($response);
                 //echo header('Content-Type: application/xml');
-                echo  $token;
+                var_dump($certificate);
                 var_dump($response);
                 //echo 'Quant: ' . $quantity;
                 //echo ' Stock: ' . $stock;

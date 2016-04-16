@@ -34,4 +34,5 @@ class Trans extends MY_Model
             return $row->Stock;
         }
     }
+	
 }
