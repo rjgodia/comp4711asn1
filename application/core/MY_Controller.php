@@ -95,15 +95,18 @@ class Application extends CI_Controller {
             $menu[] = array('name' => 'Portfolio', 'link' => '/profile');
             $menu[] = array('name' => 'About', 'link' => '/about');
             if ($userRole != null) {
-                if ($userRole == ROLE_ADMIN || $userRole == ROLE_USER) {
+
+                if ($userRole == ROLE_ADMIN || $userRole == ROLE_USER)
+                {
                     //admin and user shit in here
                     $menu[] = array('name' => 'Play', 'link' => '/play');
                 }
-                //$menu[] = array('name' => "".$userName." - Logout", 'link' => '/login/logout');
-                if ($userRole == ROLE_ADMIN) {
-                        //admin shit in here
+                if($userRole == ROLE_ADMIN){
+
+                    $menu[] = array('name' => 'Agent', 'link' => '/agentmanagement');
                 }
-                }else{
+            }
+            else{
                     //$menu[] = array('name' => 'Login', 'link' => '/login');
                 }
             return $menu;

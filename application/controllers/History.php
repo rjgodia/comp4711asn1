@@ -18,8 +18,15 @@ class History extends Application
             $stock = $this->Moves->getData("http://bsx.jlparry.com/data/movement/1");
 
             $this->data['title'] = "Recent History";
+<<<<<<< HEAD
+            //$this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
+
+            $this->data['stocktype'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/10");
+            $this->data['translist'] = $this->Trans->all();
+=======
 
             $this->data['stocktype'] = $this->Moves->getData("http://comp4711bsx.local/data/movement/5");
+>>>>>>> bc37b1e75497d3d4a7ec9c2042d3c2e1523a3c9b
             //$this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock[0]['code']);
             $this->render();
     }
@@ -29,7 +36,7 @@ class History extends Application
         $this->data['pagebody'] = 'history';
         $this->data['title'] = $stock . " History";
         $this->data['stocktype'] = $this->Moves->getDataForName("http://bsx.jlparry.com/data/movement", $stock);
-        $this->data['translist'] = $this->Trans->some("Stock", $stock);
+        $this->data['translist'] = $this->Trans->some("stock", $stock);
         $this->data['stocks'] = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
         $this->data['movelist'] = $this->Moves->all();
         
