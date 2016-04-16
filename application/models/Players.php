@@ -16,7 +16,7 @@ class Players extends MY_Model
     function __construct()
     {
         //parent::__construct('players', 'Net');
-        parent::__construct('users', 'username');
+        parent::__construct('users', 'net');
     }
     
     function getEquity()

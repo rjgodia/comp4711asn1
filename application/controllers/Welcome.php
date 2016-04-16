@@ -28,9 +28,11 @@ class Welcome extends Application
 //        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
 //        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
         
+        $this->getEquity();
+        $this->getNet();
         
         $this->data['player_list'] = $this->Players->all();
-        $arr = $this->Moves->getData("http://www.comp4711bsx.local/data/stocks");
+        $arr = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
         $this->sortArr($arr);
         $this->data['stock_list'] = $arr;
         
@@ -75,4 +77,51 @@ class Welcome extends Application
         
         return array($gameStatus);
     }
+    
+    // sum of all transactions
+    function getEquity()
+    {        
+        $players = $this->Trans->all();
+        $stocks = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
+        
+        foreach($players as $p)
+        {
+            $equity = 0;
+            foreach($stocks as $s)
+            {
+                $equity += $s['value'] * ($this->getTotalTrans($p->user, $s['code']));
+            }
+            $this->UpdateEquity($equity, $p->user);
+        }
+    }
+    
+    function getTotalTrans($player, $stock)
+    {
+        $this->db->select('SUM(quantity) AS TotalTrans');
+        $this->db->where('user', $player);
+        $this->db->where('stock', $stock);
+        return $this->db->get('transactions')->result()[0]->TotalTrans;
+    }
+    
+    function UpdateEquity($equity, $player)
+    {
+        $data = array('equity'=>$equity);
+        $this->db->where('username', $player);
+        $this->db->update('users', $data);
+    }
+    
+    function getNet()
+    {
+        $players = $this->Players->all();
+        foreach($players as $p)
+            $this->updateNetWorth($p->username, $p->equity, $p->cash);
+    }
+    
+    function updateNetWorth($player ,$equity, $cash)
+    {
+        $data = array ('net'=>( $cash + $equity ));
+        $this->db->where('username', $player);
+        $this->db->update('users', $data);
+    }
+    
 }

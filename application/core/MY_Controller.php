@@ -23,18 +23,27 @@ class Application extends CI_Controller {
 		$this->errors = array();
 		$this->data['pageTitle'] = 'welcome';   // our default page
 		
-		 $this->load->library('session');
+                $this->load->library('session');
 		 
 		 
-		 $nav_right = $this->config->item('menu_choices_right');
-		 if ($this->session->userdata('usr') !== null) {
-             $nav_right['menudata'][0] = array('name' => 'Hello, ' . $this->session->userdata('usr'), 'link' => '#');
-			 $nav_right['menudata'][1] 
-                 = array('name' => 'Logout', 'link' => '/logout');
-			 
-         }
-		 $this->config->set_item('menu_choices_right', $nav_right);
+                $nav_right = $this->config->item('menu_choices_right');
+                if ($this->session->userdata('usr') !== null)
+                {
+                    $pic = $this->getUserPic($this->session->userdata('usr'));
+                    $image = '  <img src="/uploads/'.$pic.'" width="25px" height="25px"/>';
+                    $nav_right['menudata'][0] = array('name' => 'Welcome, ' . $this->session->userdata('usr') . $image, 'link' => '#');
+                    $nav_right['menudata'][1] = array('name' => 'Logout', 'link' => '/logout');
+                }
+		$this->config->set_item('menu_choices_right', $nav_right);
 	}
+        
+        function getUserPic($username)
+        {
+            $this->db->select('avatar');
+            $query = $this->db->get_where('users', array('username'=>$username));
+            return $query->row()->avatar;
+        }
+        
 	/**
 	 * Render this page
 	 */
