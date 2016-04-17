@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2016 at 11:42 PM
+-- Generation Time: Apr 18, 2016 at 12:32 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `stockticker`
+-- Database: `comp4711`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +36,7 @@ CREATE TABLE `gamestate` (
 --
 
 INSERT INTO `gamestate` (`name`, `round`) VALUES
-('stockticker', 133);
+('stockticker', 358);
 
 -- --------------------------------------------------------
 
@@ -50,6 +50,35 @@ CREATE TABLE `holdings` (
   `token` varchar(400) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu`
+--
+
+CREATE TABLE `menu` (
+  `code` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `picture` varchar(100) NOT NULL,
+  `category` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`code`, `name`, `description`, `price`, `picture`, `category`) VALUES
+(1, 'Cheese', 'Leave this raw milk, beefy and sweet cheese out for an hour before serving and pair with pear jam.', '2.95', '1.png', 's'),
+(2, 'Turkey', 'Roasted, succulent, stuffed, lovingly sliced turkey breast', '5.95', '2.png', 'm'),
+(6, 'Donut', 'Disgustingly sweet, topped with artery clogging chocolate and then sprinkled with Pixie dust', '1.25', '6.png', 's'),
+(10, 'Bubbly', '1964 Moet Charmon, made from grapes crushed by elves with clean feet, perfectly chilled.', '14.50', '10.png', 'd'),
+(11, 'Ice Cream', 'Combination of decadent chocolate topped with luscious strawberry, churned by gifted virgins using only cream from the Tajima strain of wagyu cattle', '3.75', '11.png', 's'),
+(8, 'Hot Dog', 'Pork trimmings mixed with powdered preservatives, flavourings, red colouring and drenched in water before being squeezed into plastic tubes. Topped with onions, bacon, chili or cheese - no extra charge.', '6.90', '8.png', 'm'),
+(25, 'Burger', 'Half-pound of beef, topped with bacon and served with your choice of a slice of American cheese, red onion, sliced tomato, and Heart Attack Grill''s own unique special sauce.', '9.99', 'burger.png', 'm'),
+(21, 'Coffee', 'A delicious cup of the nectar of life, saviour of students, morning kick-starter; made with freshly grounds that you don''t want to know where they came from!', '2.95', 'coffee.png', 'd');
 
 -- --------------------------------------------------------
 
@@ -98,6 +127,58 @@ INSERT INTO `movements` (`Datetime`, `Code`, `Action`, `Amount`) VALUES
 ('2016.02.01-09:01:52', 'GOLD', 'up', 20),
 ('2016.02.01-09:01:54', 'IND', 'down', 10),
 ('2016.02.01-09:01:56', 'GOLD', 'div', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orderitems`
+--
+
+CREATE TABLE `orderitems` (
+  `order` int(11) NOT NULL,
+  `item` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orderitems`
+--
+
+INSERT INTO `orderitems` (`order`, `item`, `quantity`) VALUES
+(4, 21, 1),
+(4, 11, 1),
+(4, 2, 1),
+(2, 1, 1),
+(2, 11, 1),
+(2, 8, 1),
+(2, 10, 1),
+(1, 11, 1),
+(1, 21, 1),
+(1, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `num` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `status` varchar(1) NOT NULL,
+  `total` decimal(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`num`, `date`, `status`, `total`) VALUES
+(5, '0000-00-00 00:00:00', 'a', '0.00'),
+(4, '2016-02-20 00:53:04', 'c', '12.65'),
+(3, '0000-00-00 00:00:00', 'x', '0.00'),
+(2, '2016-02-20 00:52:47', 'c', '28.10'),
+(1, '2016-02-20 00:52:35', 'c', '12.65');
 
 -- --------------------------------------------------------
 
@@ -181,11 +262,33 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `avatar`, `role`, `cash`, `equity`, `net`) VALUES
-('rj', '$2y$10$TcJwOXGijXGudRtFLDGDo.tUSDtS.FZiY7iRTVVBjWNU9SkZn/TXO', '1460622752.png', 'user', '5000', '0', '5000'),
-('danny', '$2y$10$zIKDo69q1mVE.2yWj.QhHuUGX0jrzrfMHxZMRprcUC.s7c7F35Vj2', '1460623810.png', 'user', '5000', '0', '5000'),
-('daniel', '$2y$10$jhyT4E.jwtk7Gz7beG2/6eQi9aVuLS9HXcSxD6I5D3IjotZkawQBe', '1460623841.png', 'user', '5000', '0', '5000'),
-('nico', '$2y$10$gOpIox3cyYuifOVflxgro.bJp/9lblJQHcYWbF5hiLETyyH8/P5Mq', '1460623956.png', 'user', '5000', '0', '5000'),
-('unknown', '$2y$10$uv1NkXyAQl0pC6dOGaEhUue80EN6jGto0gXkFLIN1boZsjiYWY242', 'default.jpg', 'admin', '5000', '0', '5000');
+('unknown', '$2y$10$cTLWwNpRHJxeT1jKQj5i/OLfzndladsmpE5LcQH74WINTOT6a16F2', '1460930164.png', 'admin', '5000', '0', '5000'),
+('rj', '$2y$10$n1HtxlGUQR62Z2YRvZ.NSuadT0ZyNcjTQgmZVyVAp7kY0VQ11zWxG', '1460930187.png', 'user', '5000', '0', '5000'),
+('daniel', '$2y$10$yNl0FxeDXN5g2dJf9SZ/U.FxXJjdS9ErYs4GCeC9o0.BTBc6vOwpK', '1460930210.png', 'user', '5000', '0', '5000'),
+('danny', '$2y$10$XVl7l/tVMNdALlBt1qrQLehqTvzHsGEmfjoUMeOjuyr7dl2cUenZW', '1460930238.png', 'user', '5000', '0', '5000'),
+('nico', '$2y$10$WaaIOGkrORj.9TPk4oOJ8uxNRAUyLuKbcdSHdb8qukFqDFxvxyLwW', '1460930253.png', 'user', '5000', '0', '5000');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`code`);
+
+--
+-- Indexes for table `orderitems`
+--
+ALTER TABLE `orderitems`
+  ADD PRIMARY KEY (`order`,`item`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`num`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
