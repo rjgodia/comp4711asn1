@@ -16,13 +16,13 @@ class Players extends MY_Model
     
     function __construct()
     {
-        parent::__construct('users', 'cash');
+        parent::__construct('users', 'net');
     }
     
     function gameState($value)
     {
-//        $url = "http://bsx.jlparry.com/status";
-        $url = "http://www.comp4711bsx.local/status";
+        $url = "http://bsx.jlparry.com/status";
+//        $url = "http://www.comp4711bsx.local/status";
         $ch = curl_init($url);
         curl_setopt( $ch, CURLOPT_POST, 1);
         curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -38,15 +38,15 @@ class Players extends MY_Model
     {
         $prev = $this->getLastRoundStored();
         $curr = $this->gameState('round');
-        if($this->gameState('state') != 3)
+
+        // if previously remembered round is different from current round (regardless of gamestate)
+        // or if the gamestate is not open
+        if($prev != $curr || $this->gameState('state') != 3)
         {
-            if($prev != $curr)
-            {
-                $this->db->empty_table('transactions');
-                $this->db->empty_table('holdings');
-                $this->updateRound($curr);
-                $this->resetPlayerCash();
-            }
+            $this->db->empty_table('transactions');
+            $this->db->empty_table('holdings');
+            $this->updateRound($curr);
+            $this->resetPlayerCash();
         }
     }
     
