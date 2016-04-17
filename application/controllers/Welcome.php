@@ -17,30 +17,30 @@ class Welcome extends Application
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
         
-//        $this->Players->resetAll();
-//        
-//        $this->getEquity();
-//        $this->getNet();
-//        
-//        $this->data['player_list'] = $this->Players->all();
-//        $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
-//        $this->sortArr($arr);
-//        $this->data['stock_list'] = $arr;
-//
-//        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
-//        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
-        
         $this->Players->resetAll();
+        
         $this->getEquity();
         $this->getNet();
-
+        
         $this->data['player_list'] = $this->Players->all();
-        $arr = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
+        $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
         $this->sortArr($arr);
         $this->data['stock_list'] = $arr;
+
+        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
+        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
         
-        $this->data['recent_moves'] = $this->Moves->getData("http://www.comp4711bsx.local/data/movement/5");
-        $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
+//        $this->Players->resetAll();
+//        $this->getEquity();
+//        $this->getNet();
+//
+//        $this->data['player_list'] = $this->Players->all();
+//        $arr = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
+//        $this->sortArr($arr);
+//        $this->data['stock_list'] = $arr;
+//        
+//        $this->data['recent_moves'] = $this->Moves->getData("http://www.comp4711bsx.local/data/movement/5");
+//        $this->data['game_status'] = $this->getGameStatus("http://www.comp4711bsx.local/status");
         
         $this->render();
     }
@@ -85,8 +85,8 @@ class Welcome extends Application
     function getEquity()
     {        
         $players = $this->Trans->all();
-//        $stocks = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
-        $stocks = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
+        $stocks = $this->Stocks->getData("http://bsx.jlparry.com/data/stocks");
+//        $stocks = $this->Stocks->getData("http://www.comp4711bsx.local/data/stocks");
         foreach($players as $p)
         {
             $equity = 0;

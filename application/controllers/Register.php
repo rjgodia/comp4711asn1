@@ -84,7 +84,7 @@ class Register extends Application {
             $test1 = 'G03';
             $test2 = 'Nice Servo xD';
             $test3 = 'tuesday';
-            //$url = 'http://comp4711asn1.local:8080/register';
+//            $url = 'http://www.comp4711bsx.local/register';
             $url = 'http://bsx.jlparry.com/register';
             $myvars = 'team=' . $test1 . '&name=' . $test2 . '&password=' . $test3;
 
