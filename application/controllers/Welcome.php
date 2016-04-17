@@ -17,17 +17,17 @@ class Welcome extends Application
         $this->data['pagebody'] = 'homepage';
         $this->data['title'] = 'Stock Ticker';
 //--------> MAIN BSX SERVER
-//        $this->Players->resetAll();
-//        $this->getEquity();
-//        $this->getNet();
+        $this->Players->resetAll();
+        $this->getEquity();
+        $this->getNet();
         
         $this->data['player_list'] = $this->Players->all();
-//        $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
-//        $this->sortArr($arr);
-//        $this->data['stock_list'] = $arr;
-//
-//        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
-//        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
+        $arr = $this->Moves->getData("http://bsx.jlparry.com/data/stocks");
+        $this->sortArr($arr);
+        $this->data['stock_list'] = $arr;
+
+        $this->data['recent_moves'] = $this->Moves->getData("http://bsx.jlparry.com/data/movement/5");
+        $this->data['game_status'] = $this->getGameStatus("http://bsx.jlparry.com/status");
         
 //--------> BACK UP SERVER
 //        $this->Players->resetAll();
